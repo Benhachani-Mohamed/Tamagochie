@@ -62,7 +62,7 @@ public class Graphique extends JPanel {
 	 	 
 	 	 for(int i=0;i<nb;i++){
 	 	 	 g.drawImage(Menu[i], Cx[i], Cy[i],Width[i],Height[i], this);
-	 	 	 	 	System.out.println(i+",\n"); 
+	 	 	 	 	//System.out.println(i+",\n"); 
 	 	}
 	 }
 	  public void clear(Graphics g){
@@ -88,25 +88,27 @@ public class Graphique extends JPanel {
 	 	Height[nb] = H;
 	 	
 	 	nb++;
-	 	System.out.println("NNN -> "+path+"  "+nb); 
+	 	if(nb >2);
+	 	System.out.println("llllllllll -> "+path+"  "+nb); 
 	 
 	}
 	 
 	 
 	public int getMenu(int x,int y){
 	
-		for(int i=nb;i>=0;i--){
-	 	 	if(x>=Cx[i] && y>=Cy[i] && x<=Width[i] && y<=Height[i])
+		for(int i=nb-1;i>=0;i--){
+			 	System.out.println(": "+i+" : " +(x>=Cx[i] && y>=Cy[i] && x<=Width[i] && y<=Height[i])+"\n"); 
+	 	 	if(x>=Cx[i] && y>=Cy[i] && x<=Cx[i]+Width[i] && y<=Cy[i]+Height[i])
 	 	 		return i;
 	 	 }
-		
+			 	System.out.println(": OOOOOOO H:\n"+tString()); 
 		return -1;
 	}
 	public String tString(){
 	
-		String S="";
-		for(int i=nb;i>=0;i--)
-	 	 	S=Cx[i] +"  " + Cy[i]+"  "+Width[i]+"  "+Height[i]+"\n"; 
+		String S=nb+"\n";
+		for(int i=nb-1;i>=0;i--)
+	 	 	S+=Cx[i] +"  " + Cy[i]+"  "+Width[i]+"  "+Height[i]+"\n"; 
 	 	 	
 	 	 return S;
 	 	 	

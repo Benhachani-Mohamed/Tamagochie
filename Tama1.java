@@ -34,7 +34,7 @@ public class Tama1 extends Tamagochie {
 
 		G.draw(g);
 		//G.clear(g);
-		System.out.println(G.tString()); 
+		//System.out.println(G.tString()); 
 		
 		
     //Vous verrez cette phrase chaque fois que la méthode sera invoquée
@@ -45,12 +45,19 @@ public class Tama1 extends Tamagochie {
   public void mouseClicked(MouseEvent event) {
   
  	 System.out.println("("+event.getX()+","+event.getY()+")");
-  	System.out.println("Clicker c'est trop bien " + G.getMenu(event.getX(),event.getY())); 
+//  	System.out.println("Clicker c'est trop bien " + G.getMenu(event.getX(),event.getY())); 
+	int r=G.getMenu(event.getX(),event.getY());
+	if(r ==0){
+		G.addMenu("tux.png",200,0,200,200);
 
-	if( G.getMenu(event.getX(),event.getY())==0)
-	G.addMenu("tux.png",200,0,200,200);
-
-	System.out.println("Apres clic "+G.tString()); 
+	}
+	else	
+		if( r > 0){
+			G.addMenu("Rising_phoenix.png",400,0,200,200);
+		
+			System.out.println("Apres clic "+G.tString()); 
+			
+		}
 	
   }
   
