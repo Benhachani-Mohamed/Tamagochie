@@ -6,102 +6,218 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import java.awt.Font;
 import java.awt.Color;
+
+
+
+import java.awt.Toolkit ;
+
+ import javax.swing.JLabel;
+ 
 public class Graphique extends JPanel { 
 
 	int FWidth,FHeight;
-	Image Back;
-	Image first;
+				//metre en private
 	
-	Image Menu[];
+	Image Img[];
+	String Texte[];
+	
 	int Cx[];
 	int Cy[];
 	int Width[];
 	int Height[];
+	boolean affiche[];
+	boolean clickable[];
+	
+	boolean type[];
+	int reference[];
 	
 	int nb;
+	int nb_texte;
+	int nb_img;
+	
+	int max_texte;
+	int max_img;
 
-
-
-	public Graphique(String Background,String First,int width,int height){
+	//ajoute affiche une meme image plusiur fois
+	public Graphique(int width,int height, int max_img,int max_texte) {//metre zone puis en commun avec Texte
 	
 		FWidth=width;
 		FHeight=height;
+
+		int max;
 		
-		try {
-
-			Back = ImageIO.read(new File(Background));
-
-		} catch (IOException e) {
-
-			 e.printStackTrace();
-
-		} 	
+		if(!(max_img<0 || max_texte<0)){		
 		
-		try {
+			this.max_img=max_img;
+			this.max_texte=max_texte;
 
-			first = ImageIO.read(new File(First));
-
-		} catch (IOException e) {
-
-			 e.printStackTrace();
-
-		} 	
+		}
 		
-		nb=0;
-		Menu=new Image[100];
-		Cx=new int[100];
-		Cy=new int[100];
-		Width=new int[100];
-		Height=new int[100];
+		Img=new Image[this.max_img];
+		Texte= new String[this.max_texte];
+	
+		max=this.max_img+this.max_texte;
 		
+		Cx=new int[max];
+		Cy=new int[max];
+		Width=new int[max];
+		Height=new int[max];
+		affiche=new boolean[max];
+	 	clickable=new boolean[max];
+	 	
+	 	type=new boolean[max];
+	 	reference=new int[max];
+	
 	}
+		
+	/*
 	 public void draw(Graphics g){
 	 
-	    	 g.drawImage(Back, 0, 0,FWidth,FHeight, this);
-	 	 g.drawImage(first, 0, 0,FWidth,FHeight, this);
-	 	 
+	 	/* ImageIcon icon = new ImageIcon("giphy.gif");
+       		 JLabel label = new JLabel(icon);
+		JPanel panel = new JPanel();
+
+       		 panel.add(label);
+     
 	 	 for(int i=0;i<nb;i++){
-	 	 	 g.drawImage(Menu[i], Cx[i], Cy[i],Width[i],Height[i], this);
-	 	 	 	 	//System.out.println(i+",\n"); 
+	 	 	if(affiche[i]){
+		 	 	if(type[i]){
+		 	 		System.out.println( g.drawImage(Img[reference[i]], Cx[i], Cy[i],Width[i],Height[i], this));
+		 	 		 
+
+		 	 	}
+				else{
+		
+		
+					Font font = new Font("Courier", Font.BOLD, 20);
+				    	g.setFont(font);
+				    	g.setColor(Color.black);          
+				    	g.drawString(Texte[reference[i]],Cx[i], Cy[i]); 
+				}
+			}
 	 	}
-	 }
-	  public void clear(Graphics g){
+
+
+/*
+		try {
+
+		Thread.sleep(300);
+
+		} catch (InterruptedException e) {
+
+		e.printStackTrace();
+
+		}
+
+	 	//return panel;
+	 }*/
+	 public void paintComponent(Graphics g){
+		//clear(g);
+	 	 for(int i=0;i<nb;i++){
+	 	 	if(affiche[i]){
+		 	 	if(type[i]){
+		 	 		 g.drawImage(Img[reference[i]], Cx[i], Cy[i],Width[i],Height[i], this);
+
+
+
+		 	 	}
+				else{
+		
+		
+					Font font = new Font("Courier", Font.BOLD, 20);
+				    	g.setFont(font);
+				    	g.setColor(Color.black);          
+				    	g.drawString(Texte[reference[i]],Cx[i], Cy[i]); 
+				}
+			}
+	 	}
+
+/*
+		 try {
+
+			Thread.sleep(300);
+
+			} catch (InterruptedException e) {
+
+			e.printStackTrace();
+
+			}*/
+	 	
+		 
+	}
+	 public void clear(Graphics g){
 	 
 	    	g.setColor(Color.white);
-
-    			//On le dessine de sorte qu'il occupe toute la surface
-
-    			g.fillRect(0, 0, FWidth, FHeight);
+    		g.fillRect(0, 0, FWidth, FHeight);
 	 }
 	 
-	public void addMenu(String path,int x,int y,int W,int H){
-	 	try {
-	 		Menu[nb] = ImageIO.read(new File(path));
-	 	} catch (IOException e) {
+	public int addImg(String path,int x,int y,int W,int H,boolean display,boolean click){
+	
+		if(nb_img>=max_img)
+			return -1;
+			
+			 Toolkit tk = Toolkit.getDefaultToolkit();
 
-			 e.printStackTrace();
+        		Img[nb_img] = tk.createImage(path);
+        		tk.prepareImage(Img[nb_img] , -1, -1, null);
 
-		} 
+
+	 
+		reference[nb]=nb_img;
+		
+		nb_img++;
+		
+		type[nb]=true;
 	 	Cx[nb] = x;
 	 	Cy[nb] = y;
 	 	Width[nb] = W;
 	 	Height[nb] = H;
+	 	affiche[nb]=display;
+	 	clickable[nb]=click;
 	 	
 	 	nb++;
-	 	if(nb >2);
-	 	System.out.println("llllllllll -> "+path+"  "+nb); 
+	 	
+		return nb-1;
+	 	
 	 
 	}
+	public int addTexte(String S,int x,int y,int W,int H,boolean display,boolean click){
+	
+		if(nb_texte>=max_texte)
+			return -1;
+		
+
+	 	Texte[nb_texte] = S;	//ajoute font etc;
+	 	
+		
+		reference[nb]=nb_texte;
+		nb_texte++;
+		
+		type[nb]=false;
+	 	Cx[nb] = x;
+	 	Cy[nb] = y;
+	 	Width[nb] = W;
+	 	Height[nb] = H;
+	 	affiche[nb]=display;
+	 	clickable[nb]=click;
+	 	
+	 	nb++;
+	 	
+	 	return nb-1;
+	 	
 	 
+	}
+	  
 	 
 	public int getMenu(int x,int y){
 	
 		for(int i=nb-1;i>=0;i--){
-			 	System.out.println(": "+i+" : " +(x>=Cx[i] && y>=Cy[i] && x<=Width[i] && y<=Height[i])+"\n"); 
-	 	 	if(x>=Cx[i] && y>=Cy[i] && x<=Cx[i]+Width[i] && y<=Cy[i]+Height[i])
-	 	 		return i;
+			if(clickable[i]){
+	 	 		if(x>=Cx[i] && y>=Cy[i] && x<=Cx[i]+Width[i] && y<=Cy[i]+Height[i])
+	 	 			return i;
+	 	 	}
 	 	 }
-			 	System.out.println(": OOOOOOO H:\n"+tString()); 
+
 		return -1;
 	}
 	public String tString(){
@@ -114,17 +230,7 @@ public class Graphique extends JPanel {
 	 	 	
 	
 	}
-	public void Text(Graphics g,String S,int size,int x,int y){
-
-		Font font = new Font("Courier", Font.BOLD, size);
-	    	g.setFont(font);
-	    	g.setColor(Color.black);          
-	    	g.drawString(S, x, y);   
-
-
-
-
-	}
+	
 
 
 
