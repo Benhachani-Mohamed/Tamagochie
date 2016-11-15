@@ -69,48 +69,7 @@ public class Graphique extends JPanel {
 	 	reference=new int[max];
 	
 	}
-		
-	/*
-	 public void draw(Graphics g){
-	 
-	 	/* ImageIcon icon = new ImageIcon("giphy.gif");
-       		 JLabel label = new JLabel(icon);
-		JPanel panel = new JPanel();
-
-       		 panel.add(label);
-     
-	 	 for(int i=0;i<nb;i++){
-	 	 	if(affiche[i]){
-		 	 	if(type[i]){
-		 	 		System.out.println( g.drawImage(Img[reference[i]], Cx[i], Cy[i],Width[i],Height[i], this));
-		 	 		 
-
-		 	 	}
-				else{
-		
-		
-					Font font = new Font("Courier", Font.BOLD, 20);
-				    	g.setFont(font);
-				    	g.setColor(Color.black);          
-				    	g.drawString(Texte[reference[i]],Cx[i], Cy[i]); 
-				}
-			}
-	 	}
-
-
-/*
-		try {
-
-		Thread.sleep(300);
-
-		} catch (InterruptedException e) {
-
-		e.printStackTrace();
-
-		}
-
-	 	//return panel;
-	 }*/
+	
 	 public void paintComponent(Graphics g){
 		//clear(g);
 	 	 for(int i=0;i<nb;i++){
@@ -132,17 +91,7 @@ public class Graphique extends JPanel {
 			}
 	 	}
 
-/*
-		 try {
 
-			Thread.sleep(300);
-
-			} catch (InterruptedException e) {
-
-			e.printStackTrace();
-
-			}*/
-	 	
 		 
 	}
 	 public void clear(Graphics g){
@@ -231,7 +180,20 @@ public class Graphique extends JPanel {
 	
 	}
 	
+	public void change(int num,String S){
+	
 
+	 	 	if(type[num]){
+	 	 	
+				Toolkit tk = Toolkit.getDefaultToolkit();
+				Img[nb_img] = tk.createImage(S);
+				tk.prepareImage(Img[reference[num]] , -1, -1, null);
+	 	 	}
+			else
+			    	Texte[reference[num]]=S; 
+			
+		
+	}
 
 
 
