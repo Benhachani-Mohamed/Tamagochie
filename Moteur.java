@@ -1,8 +1,13 @@
 import java.awt.Graphics;
 import java.awt.Color;
 import javax.swing.JPanel;
-
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Date;
+import java.io.FileWriter;
 public class Moteur {
 	
 	String Nom;
@@ -16,14 +21,53 @@ public class Moteur {
 	Date DateDerniereIncrementation[];
 
 	
-	/*public static void main(String[] args){
+	public static void main(String[] args){
 		
 		Moteur L = new Moteur("lol",true,5);
 		L.add("Faim",0,"./750.jpg","Blue");
 	    	L.add("Propreter ",2,"./751.jpg","Green");
 	    	System.out.println(L.toString());
-	}  */    
-	 	
+	    	L.Sauvegarde();
+	}    
+	public  void Sauvegarde()
+	{
+		
+	
+		FileWriter fos = null;
+		try
+		{
+			fos = new FileWriter("sauvegarde.txt",true);
+			fos.write(Nom+"|"+DateNaissance.getTime()+"|"+Sexe+"|"+nb_variable+"|"+max);
+			for(int i = 0;i<DateDerniereIncrementation.length;i++)
+			{
+				fos.write("|"+Sujet[i]+"|"+Valeur[i]+"|"+DateDerniereIncrementation[i].getTime()+i);
+			}
+		}
+		catch (FileNotFoundException e) 
+		{
+				e.printStackTrace();
+
+	    } 
+		catch (IOException e) 
+	    {
+	         e.printStackTrace();
+	    }
+		finally 
+		{
+	    	  try
+	    	  {
+	    		  if (fos != null)
+	    			  fos.close();
+
+	    	  } 
+	    	  catch (IOException e) 
+	    	  {
+	    		  e.printStackTrace();
+
+	         }
+		}
+	}
+	
 	public Moteur(String Nom,boolean Sexe,int max){
 		
 		this.Nom=Nom;
