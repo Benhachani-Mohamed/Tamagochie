@@ -1,2 +1,2 @@
 # Tamagochie
-Le projet Tamagochie en JAVA des BG
+Le projet Tamagochie en JAVA 
