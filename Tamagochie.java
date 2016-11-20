@@ -6,7 +6,7 @@ import java.awt.event.MouseListener;
 import javax.swing.JButton;
  abstract class Tamagochie extends JButton implements MouseListener{
  Graphique G;
-  abstract void play(Graphics g); //Des fonction partager par tout les Tamagochie
+//  abstract void play(Graphics g); //Des fonction partager par tout les Tamagochie
 
 }
 

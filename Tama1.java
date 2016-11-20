@@ -20,6 +20,7 @@ import java.awt.event.ActionListener;
 
 
 import java.util.Date;
+import java.awt.Font;
 public class Tama1 extends Tamagochie { 
 
  Graphique G;
@@ -34,81 +35,55 @@ public class Tama1 extends Tamagochie {
 		
 	    	this.addMouseListener(this);
 	    	
-		G=new Graphique(800,600,100,100);
+		G=new Graphique(800,600,100,100,100);
 		
-		
-		
-		G.addImg("Back.jpg",0,0,800,600,true,false);
-		carl=G.addImg("giphy.gif",0,0,500,500,true,false);
-		phoenix=G.addImg("Rising_phoenix.png",0,0,200,200,true,true);
-
-		bob=G.addImg("giphy2.gif",0,0,500,500,false,false);
-		bulle=G.addImg("large.png",300,400,500,200,true,false);	
-		txt=G.addTexte("La verite c'est vrai",350,500,200,200,true,false);	
 			
 		this.add(G);
 			//	this.add(this);
 			
-			  int delay = 1000; //milliseconds
-			 ActionListener taskPerformer = new ActionListener() {
-				public void actionPerformed(ActionEvent evt) {
+				G.repaint();		
+
+
+		G.addColor(158,55,208,255);
+		G.addColor(56,156,70,255);
+		G.setColor(G.addRectangle(20,20,300,300,true,false),2);
+		//Apelle d'un Timer qui effectuera une action chaque seconde
+		
+		 ActionListener taskPerformer = new ActionListener() {
+		 
+			public void actionPerformed(ActionEvent evt) {
+				
+				//System.out.println("LOL");
+				if(it == 17){
 					
-    					System.out.println("LOL");
-    					G.change(txt,""+(new Date()));
-    					
+					carl += 400;
+					it=0;
+					
 				}
-			};
-		new Timer(delay, taskPerformer).start();
+				int ok=G.addFont("Courier", Font.BOLD, 20);
+					
+				
+				//System.out.println(ok);
+				G.setColor(G.addTexte(""+(new Date())+" "+ok,carl,30*++it,0,0,true,false),1);
+				
+				
+				
+				
+				
+				G.repaint();		
+				
+			}
+		};
+		
+		new Timer(1000, taskPerformer).start();
 
 	}
-	  public void play(Graphics g){
-
-	  }
-	//  public void paintComponent(Graphics g){
-	//play( g);
-
-
-		//while(true){
-		//	G.draw(g);
-			
-
-		//}		add(new JPanel());
-
-
-		//G.clear(g);
-		// 						System.out.println("LOL"); 
-		//setVisible(false);
-		
-    //Vous verrez cette phrase chaque fois que la méthode sera invoquée
-    
-    
-    	//while(true){
-    		
-
-    	
- // }  
-               
+     
   public void mouseClicked(MouseEvent event) {
   
- 	// System.out.println("("+event.getX()+","+event.getY()+")");
-//  	System.out.println("Clicker c'est trop bien " + G.getMenu(event.getX(),event.getY())); 
 	int r=G.getMenu(event.getX(),event.getY());
-	    		System.out.println("LOL");
-	if(r ==2){
-		if(it==0){
-		
-			G.affiche[carl]=false;
-			G.affiche[bob]=true;
-			it++;
-		}
-		else{
-			G.affiche[bob]=false;
-			G.affiche[carl]=true;
-			it=0;
-		
-		}
 
-	}
+
 	
   }
   
