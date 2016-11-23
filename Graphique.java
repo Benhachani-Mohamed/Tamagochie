@@ -282,6 +282,42 @@ public class Graphique extends JPanel {
 	 	
 	 
 	}
+	public int addImgStable(String path,int x,int y,int W,int H,boolean display,boolean click){
+	
+		if(nb_img>=max_img)
+			return -1;
+			
+
+
+        	try {
+	 		Img[nb_img] = ImageIO.read(new File(path));
+	 	} catch (IOException e) {
+
+			 e.printStackTrace();
+
+		} 
+
+
+
+	 
+		reference[nb]=nb_img;
+		
+		nb_img++;
+		
+		type[nb]=0;
+	 	Cx[nb] = x;
+	 	Cy[nb] = y;
+	 	Width[nb] = W;
+	 	Height[nb] = H;
+	 	affiche[nb]=display;
+	 	clickable[nb]=click;
+	 	
+	 	nb++;
+	 	
+		return nb-1;
+	 	
+	 
+	}
 	 /**
 
 	 *
@@ -476,7 +512,8 @@ public class Graphique extends JPanel {
 					tk.prepareImage(Img[reference[id]] , -1, -1, null);
 		 	 	}
 				else
-				    	Texte[reference[id]]=S; 
+					if(type[id]==1)
+				    		Texte[reference[id]]=S; 
 			}
 		
 	}

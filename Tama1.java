@@ -25,7 +25,7 @@ public class Tama1 extends Tamagochie {
 
  Graphique G;
 	int it;
-	
+	Date ecouler;
 	
 	
 	int carl,phoenix,bulle,bob,txt;
@@ -37,39 +37,36 @@ public class Tama1 extends Tamagochie {
 	    	
 		G=new Graphique(800,600,100,100,100);
 		
-			
+		ecouler = new Date();	
 		this.add(G);
-			//	this.add(this);
-			
-				G.repaint();		
 
-
-		G.addColor(158,55,208,255);
-		G.addColor(56,156,70,255);
-		G.setColor(G.addRectangle(20,20,300,300,true,false),2);
+		G.addImgStable("fond.gif",0,0,800,600,true,false);
+		G.addImg("fond.gif",0,0,800,600,false,false);
+		G.addImg("debut.gif",0,0,800,600,true,false);	
+		G.addImg("chameau_lvl_3.gif",0,-100,800,600,false,false);
+		G.addTexte("qmsldkqmlsdkq",0,100,800,600,true,false);			
+		G.repaint();		
+		
+		
+		
 		//Apelle d'un Timer qui effectuera une action chaque seconde
 		
 		 ActionListener taskPerformer = new ActionListener() {
 		 
 			public void actionPerformed(ActionEvent evt) {
-				
-				//System.out.println("LOL");
-				if(it == 17){
+			
+				it++;
+				G.change(4,""+((new Date()).getTime()-ecouler.getTime()));
+				ecouler = new Date();
+				if(it == 4){
+						G.affiche[0]=false;
+						G.affiche[1]=true;
+
+						G.affiche[2]=false;
+						G.affiche[3]=true;
+					}
 					
-					carl += 400;
-					it=0;
-					
-				}
-				int ok=G.addFont("Courier", Font.BOLD, 20);
-					
-				
-				//System.out.println(ok);
-				G.setColor(G.addTexte(""+(new Date())+" "+ok,carl,30*++it,0,0,true,false),1);
-				
-				
-				
-				
-				
+
 				G.repaint();		
 				
 			}
