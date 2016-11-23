@@ -52,7 +52,7 @@ public class Tama1 extends Tamagochie {
 		G.addImg("image/chargement.gif",0,0,800,600,false,false);//9
 		G.addTexte("Votre Oeuf eclot ,",300,100,0,0,false,false);//10
 		G.addTexte("un dromadaire est entrain de naître ...(chargement)",100,150,0,0,false,false);//11
-		G.addTexte("Votre dromadaire évolue !!!",250,100,0,0,false,false);//12
+		G.addTexte("Votre dromadaire évolue !!!",200,100,0,0,false,false);//12
 			
 		G.repaint();		
 		
