@@ -8,12 +8,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
 import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.lang.*;
 public class Moteur {
 	
 	String Nom;
 	Date DateNaissance;
 	boolean Sexe;
-	
+	boolean nouveau;
 	int nb_variable;
 	int max;
 	String Sujet[];
@@ -29,18 +32,49 @@ public class Moteur {
 	   	System.out.println(L.toString());
 	    L.Sauvegarde();
 	}   */
-	public  void Sauvegarde()
+	public  void SauvegardeDate()
 	{
-		
-	
 		FileWriter fos = null;
 		try
 		{
-			fos = new FileWriter("sauvegarde.txt",true);
-			fos.write(Nom+"|"+DateNaissance.getTime()+"|"+Sexe+"|"+nb_variable+"|"+max);
+			fos = new FileWriter("DateDeCreation.txt",false);
+			Date DateNaissance = new Date();
+			fos.write(""+DateNaissance.getTime()+"");
+		}
+		catch (FileNotFoundException e) 
+		{
+				e.printStackTrace();
+
+	    } 
+		catch (IOException e) 
+	    {
+	         e.printStackTrace();
+	    }
+		finally 
+		{
+	    	  try
+	    	  {
+	    		  if (fos != null)
+	    			  fos.close();
+
+	    	  } 
+	    	  catch (IOException e) 
+	    	  {
+	    		  e.printStackTrace();
+
+	         }
+		}
+	}
+	public  void Sauvegarde()
+	{
+		FileWriter fos = null;
+		try
+		{
+			fos = new FileWriter("sauvegarde.txt",false);
+			fos.write(Nom+"-o-"+Sexe+"-o-"+nb_variable+"-o-"+max);
 			for(int i = 0;i<DateDerniereIncrementation.length;i++)
 			{
-				fos.write("|"+Sujet[i]+"|"+Valeur[i]+"|"+DateDerniereIncrementation[i].getTime()+i);
+				fos.write("-o-"+Sujet[i]+"-o-"+Valeur[i]+"-o-"+DateDerniereIncrementation[i].getTime());
 			}
 		}
 		catch (FileNotFoundException e) 
@@ -67,13 +101,89 @@ public class Moteur {
 	         }
 		}
 	}
-	
-	public Moteur(String Nom,boolean Sexe,int max){
+	public boolean ChargerDate(String nom){
+		int compteur = 0;
+		String str;
+        BufferedReader fis;
+		 try {
+		 fis = new BufferedReader(new FileReader(new File(nom+".txt")));
+		if(fis.ready() == false ){
+          	return false;
+        }
+        str = fis.readLine();
+		this.DateNaissance = new Date(Long.parseLong(str));
+		fis.close(); 
+        return true;
+      } catch (FileNotFoundException e) {
+
+         // Cette exception est levée si l'objet FileInputStream ne trouve
+
+         // aucun fichier
+
+       return false;
+
+      } catch (IOException e) {
+
+         // Celle-ci se produit lors d'une erreur d'écriture ou de lecture
+
+         return false;
+
+      } 
+	}
+	public boolean Charger(String nom){
+		int compteur = 0;
+		String str;
+        BufferedReader fis;
+		 try {
+		 fis = new BufferedReader(new FileReader(new File(nom+".txt")));
+		if(fis.ready() == false ){
+          	return false;
+        }
+        str = fis.readLine();
+         fis.close();
+        String[] strp ;
+        strp = str.split("-o-");
+        this.Nom = strp [0];
+		//this.DateNaissance = new Date(Long.parseLong(strp[1]));
+		this.Sexe=(strp[1]=="true");
+		this.nb_variable=Integer.parseInt(strp[2]);
+		this.max=Integer.parseInt(strp[3]);
+		Sujet=new String[max];
+		Valeur=new int[max];
+		DateDerniereIncrementation=new Date[max];
+		int index = 0;
+		int taille = strp.length ;
+		for(int i = 4 ; i < taille; i+=3 )
+		{
+			this.Sujet[index]=strp[i];
+			this.Valeur[index]=Integer.parseInt(strp[i+1]);
+			this.DateDerniereIncrementation[index]=new Date(Long.parseLong(strp[i+2]));
+			index++;
+		}
+        fis.close(); 
+        return true;
+      } catch (FileNotFoundException e) {
+
+         // Cette exception est levée si l'objet FileInputStream ne trouve
+
+         // aucun fichier
+
+       return false;
+
+      } catch (IOException e) {
+
+         // Celle-ci se produit lors d'une erreur d'écriture ou de lecture
+
+         return false;
+
+      } 
+	}
+	public Moteur(String Nom,boolean Sexe,int max,boolean nouveau){
 		
 		this.Nom=Nom;
 		this.DateNaissance=new Date();
 		this.Sexe=Sexe;
-
+		this.nouveau = nouveau;
 		this.max=max;
 		nb_variable=0;	
 		
@@ -113,7 +223,7 @@ public class Moteur {
 
 		if(colonne<=nb_variable){
 	
-			Valeur[colonne]=Valeura;
+			Valeur[colonne]+=Valeura;
 			return true;	
 		}
 		return false;
@@ -157,6 +267,9 @@ public class Moteur {
 		return null;
 	
 	}
+	public Date getDateNaissance(){
+			return DateNaissance;	
+	}
 	
 	public int getMax(){
 	
@@ -182,7 +295,15 @@ public class Moteur {
 			A+=Sujet[i]+" | "+Valeur[i]+" | "+DateDerniereIncrementation[i].getTime()+"\n";
 		return A;
 	}
-	
+	public void Afficher()
+	{
+		System.out.println("Nom : "+Nom);
+		System.out.println("DateNaissance : "+DateNaissance);
+		System.out.println("Sexe : "+((Sexe)?"Femme":"Homme"));
+		System.out.println("Sujet | Valeur | Date ");
+		for(int i=0;i<nb_variable;i++)
+			System.out.println(Sujet[i]+" | "+Valeur[i]+" | "+DateDerniereIncrementation[i].getTime());
+	}
 	
 	
 	
