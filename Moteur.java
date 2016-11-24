@@ -21,14 +21,14 @@ public class Moteur {
 	Date DateDerniereIncrementation[];
 
 	
-	public static void main(String[] args){
+	/*public static void main(String[] args){
 		
 		Moteur L = new Moteur("lol",true,5);
 		L.add("Faim",0,"./750.jpg","Blue");
-	    	L.add("Propreter ",2,"./751.jpg","Green");
-	    	System.out.println(L.toString());
-	    	L.Sauvegarde();
-	}    
+	   	L.add("Propreter ",2,"./751.jpg","Green");
+	   	System.out.println(L.toString());
+	    L.Sauvegarde();
+	}   */
 	public  void Sauvegarde()
 	{
 		

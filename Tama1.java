@@ -23,7 +23,8 @@ import java.util.Date;
 import java.awt.Font;
 public class Tama1 extends Tamagochie { 
 
- Graphique G;
+ 	Graphique G;
+	Moteur Kudret;
 	int it;
 	Date ecouler;
 	
@@ -36,10 +37,9 @@ public class Tama1 extends Tamagochie {
 	    	this.addMouseListener(this);
 	    	
 		G=new Graphique(800,600,100,100,100);
-		
+		Kudret=new Moteur("Ardian",true,3);
 		ecouler = new Date();	
 		this.add(G);
-
 		G.addImgStable("image/fond.gif",0,0,800,600,true,false);		//0
 		G.addImg("image/fond.gif",0,0,800,600,false,false);				//1	
 		G.addImg("image/debut.gif",0,0,800,600,true,false);				//2	
@@ -65,6 +65,7 @@ public class Tama1 extends Tamagochie {
 			public void actionPerformed(ActionEvent evt) {
 			
 				it++;
+				Kudret.
 				G.change(4,""+((new Date()).getTime()-ecouler.getTime()));
 				ecouler = new Date();
 				if(it == 4)
