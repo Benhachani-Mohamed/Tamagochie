@@ -219,21 +219,12 @@ public class Moteur {
 		return false;
 	
 	}
-	public boolean setValeurDec(int colonne,int Valeura){
+	public boolean setValeur(int colonne,int Valeura){
 
 		if(colonne<=nb_variable){
-			if(Valeur[colonne] + Valeura <= 0)
+			if(Valeur[colonne] - Valeura <= 0)
 				Valeur[colonne] = 0 ;
 			else
-				Valeur[colonne]+=Valeura;
-			return true;	
-		}
-		return false;
-
-	}
-	public boolean setValeurInc(int colonne,int Valeura){
-
-		if(colonne<=nb_variable){
 				Valeur[colonne]+=Valeura;
 			return true;	
 		}

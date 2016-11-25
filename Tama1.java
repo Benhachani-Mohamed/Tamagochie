@@ -27,7 +27,7 @@ public class Tama1 extends Tamagochie {
 	    	this.addMouseListener(this);
 	    	
 		G=new Graphique(800,600,100,100,100);
-		Kudret=new Moteur("Ardian",true,3,false);
+		Kudret=new Moteur("Ardian",true,3,true);
 		if(Kudret.nouveau)
 		{
 			Kudret.SauvegardeDate();
@@ -44,78 +44,108 @@ public class Tama1 extends Tamagochie {
 		Kudret.Sauvegarde();
 		ecouler = new Date();	
 		this.add(G);
-		G.addImgStable("image/fond.gif",0,0,800,600,false,false);		//0
+		G.addImgStable("image/fond.gif",0,0,800,600,true,false);		//0
 		G.addImg("image/fond.gif",0,0,800,600,false,false);				//1	
-		G.addImg("image/debut.gif",0,0,800,600,false,false);				//2	
+		G.addImg("image/debut.gif",0,0,800,600,true,false);				//2	
 		G.addImg("image/chameau_lvl_0.gif",0,-100,800,600,false,false);	//3	
 		G.addImg("image/chameau_lvl_1.gif",0,-100,800,600,false,false);	//4
 		G.addImg("image/chameau_lvl_2.gif",0,-100,800,600,false,false);	//5
 		G.addImgStable("image/bouton_eau.gif",5,5,50,50,false,true);	//6
 		G.addImgStable("image/bouton_nour.gif",5,60,50,50,false,true);	//7
-		G.addImg("image/zzz.gif",5,115,50,50,false,true);	//8		
+		G.addImg("image/zzz.gif",5,115,50,50,false,true);	//8			
 		G.addImg("image/chargement.gif",0,0,800,600,false,false);//9
 		G.addTexte("Votre Oeuf eclot ,",300,100,0,0,false,false);//10
 		G.addTexte("un dromadaire est entrain de naître ...(chargement)",100,150,0,0,false,false);//11
 		G.addTexte("Votre dromadaire évolue !!!",250,100,0,0,false,false);//12
 		G.addTexte("Votre dromadaire est mort !!!!!",250,100,0,0,false,false);//13
+		G.addImgStable("image/eau_click.gif",5,5,50,50,false,false);	//14
+		G.addImgStable("image/nour_click.gif",5,60,50,50,false,false);	//15
+		G.addImg("image/som_click.gif",5,115,50,50,false,false);	//16	
 			
 		G.repaint();		
-		
-		
+		//---------Test---------------//
+		Kudret.setValeurInc(0,500);
+		Kudret.setValeurInc(1,500);
+		Kudret.setValeurInc(2,500);
+		//---------Test---------------//
 		
 		//Apelle d'un Timer qui effectuera une action chaque seconde
 		
 		 ActionListener taskPerformer = new ActionListener() {
 		 
 			public void actionPerformed(ActionEvent evt) {
-				System.out.println();
+				Kudret.Afficher();
 				boolean vie = true;
 				boolean chargement = false;
+				boolean debut = false;
 				int niveau;
 				niveau = 5;
 				it++;
 				G.change(4,""+((new Date()).getTime()-ecouler.getTime()));
 				ecouler = new Date();
+				//---------Age du chameau-------------//
 				float age = (ecouler.getTime() -  Kudret.getDateNaissance().getTime()) / 1000;
 				System.out.println(age);
-				if(age > 0 && age <4)
-					niveau = 0;
-				else if( age >4 && age <16)
-					niveau = 1;
-				else if(age >16)
-					niveau = 2;
-				/*if(it % 5 == 0 && vie == true)
+				//-------Definition du niveau----------------//
+				if( age > -1 && age < 3 )
+					debut = true;
+				else if( age > 3 && age < 8 )
 				{
-					Kudret.setValeur(0, 1) ;
-					Kudret.setValeur(1,3 );
-					Kudret.setValeur(2,2) ;
-					Kudret.Sauvegarde();
-				}*/
-				if(Kudret.getValeur(0) == 10 && vie == true)
+					debut = false;
+					chargement = true;
+				}				
+				else if(age > 8 && age < 3600)
+				{
+					niveau = 0;
+					chargement = false;
+				}			
+				else if(age >3600 && age <7200)
+					niveau = 1;
+				else if(age >7200)
+					niveau = 2;
+				// La mort du chaeau //
+				if(Kudret.getValeur(0)*Kudret.getValeur(1)*Kudret.getValeur(2) == 0 )
 				{
 					vie = false;
 					for(int i = 0 ; i < 14 ; i++)
 						G.affiche[i] = false;
-					G.affiche[13]= true;
+					G.affiche[13] = true;
+					
+	
 				}
+				//---------------Decrementation des variable toutes les 2 secondes -------------//
+				if(it % 2 == 0 && vie == true)
+				{
+					Kudret.setValeurDec(0, -50) ;
+					Kudret.setValeurDec(1, -50);
+					Kudret.setValeurDec(2,-50) ;
+					Kudret.Sauvegarde();
+				}
+				//-----------debut------------//
+				if(debut)
+				{
+					G.affiche[0] = true;
+					G.affiche[2] = true;
+				}				
 				//chargement naissance 
-				/*else if(age == 4 && vie == true)
+				else if( chargement == true && vie == true)
 				{
 					for(int i = 0 ; i < 14 ; i++)
 						G.affiche[i] = false;					
 					G.affiche[9] = true;
 					G.affiche[10] = true;
 					G.affiche[11] = true;
-				}*/
-				//chameau niveau 0
-				if(niveau == 0 && vie == true)
+				}
+				
+				//-----------chameau niveau 0 ------------//
+				else if(niveau == 0 && vie == true)
 				{
 					for(int i = 0 ; i < 14 ; i++)
 						G.affiche[i] = false;
 					G.affiche[6] = true;	
 					G.affiche[7]=true;
 					G.affiche[8] = true;
-					G.affiche[0] = true;
+					G.affiche[1] = true;
 					G.affiche[3] = true; 
 				}
 				/*else if( age == 10)
@@ -166,11 +196,29 @@ public class Tama1 extends Tamagochie {
 	int r=G.getMenu(event.getX(),event.getY());
 	System.out.println(r);
 	if(r == 6)
-		Kudret.setValeur(0,10);
+	{
+		Kudret.setValeurInc(0,10);
+		if(G.affiche[14])
+			G.affiche[14] = false;
+		else
+			G.affiche[14] = true;
+	}	
 	else if(r==7)
-		Kudret.setValeur(1,5);
+	{	
+		Kudret.setValeurInc(1,5);
+		if(G.affiche[15])
+			G.affiche[15] = false;
+		else
+			G.affiche[15] = true;
+	}	
 	else if(r == 8 )
-		Kudret.setValeur(2,1);
+	{	
+		Kudret.setValeurInc(2,1);
+		if(G.affiche[16])
+			G.affiche[16] = false;
+		else
+			G.affiche[16] = true;
+	}	
 	Kudret.Sauvegarde();
 
 	
