@@ -15,6 +15,7 @@ public class Moteur {
 	
 	String Nom;
 	Date DateNaissance;
+	boolean vie;
 	boolean Sexe;
 	boolean nouveau;
 	int nb_variable;
@@ -22,6 +23,7 @@ public class Moteur {
 	String Sujet[];
 	int Valeur[];
 	Date DateDerniereIncrementation[];
+
 
 	
 	/*public static void main(String[] args){
@@ -144,7 +146,6 @@ public class Moteur {
         String[] strp ;
         strp = str.split("-o-");
         this.Nom = strp [0];
-		//this.DateNaissance = new Date(Long.parseLong(strp[1]));
 		this.Sexe=(strp[1]=="true");
 		this.nb_variable=Integer.parseInt(strp[2]);
 		this.max=Integer.parseInt(strp[3]);
@@ -186,7 +187,7 @@ public class Moteur {
 		this.nouveau = nouveau;
 		this.max=max;
 		nb_variable=0;	
-		
+		this.vie = true;
 		Sujet=new String[max];
 		Valeur=new int[max];
 		DateDerniereIncrementation=new Date[max];
@@ -222,10 +223,10 @@ public class Moteur {
 	public boolean setValeurDec(int colonne,int Valeura){
 
 		if(colonne<=nb_variable){
-			if(Valeur[colonne] + Valeura <= 0)
+			if(Valeur[colonne] - Valeura <= 0)
 				Valeur[colonne] = 0 ;
 			else
-				Valeur[colonne]+=Valeura;
+				Valeur[colonne]-=Valeura;
 			return true;	
 		}
 		return false;
@@ -233,8 +234,11 @@ public class Moteur {
 	}
 	public boolean setValeurInc(int colonne,int Valeura){
 
-		if(colonne<=nb_variable){
-				Valeur[colonne]+=Valeura;
+		if(colonne<=nb_variable ){
+				if(Valeur[colonne] + Valeura <=500)
+					Valeur[colonne]+=Valeura;
+				else
+					Valeur[colonne]=500;
 			return true;	
 		}
 		return false;
