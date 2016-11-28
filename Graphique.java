@@ -256,18 +256,11 @@ public class Graphique extends JPanel {
 	
 		if(nb_img>=max_img)
 			return -1;
-			
-			 Toolkit tk = Toolkit.getDefaultToolkit();
-
-        		Img[nb_img] = tk.createImage(path);
-        		tk.prepareImage(Img[nb_img] , -1, -1, null);
-
-
-	 
+		Toolkit tk = Toolkit.getDefaultToolkit();
+		Img[nb_img] = tk.createImage(path);
+        tk.prepareImage(Img[nb_img] , -1, -1, null);
 		reference[nb]=nb_img;
-		
 		nb_img++;
-		
 		type[nb]=0;
 	 	Cx[nb] = x;
 	 	Cy[nb] = y;
@@ -275,35 +268,19 @@ public class Graphique extends JPanel {
 	 	Height[nb] = H;
 	 	affiche[nb]=display;
 	 	clickable[nb]=click;
-	 	
 	 	nb++;
-	 	
 		return nb-1;
-	 	
-	 
 	}
 	public int addImgStable(String path,int x,int y,int W,int H,boolean display,boolean click){
-	
 		if(nb_img>=max_img)
 			return -1;
-			
-
-
         	try {
 	 		Img[nb_img] = ImageIO.read(new File(path));
 	 	} catch (IOException e) {
-
 			 e.printStackTrace();
-
 		} 
-
-
-
-	 
 		reference[nb]=nb_img;
-		
 		nb_img++;
-		
 		type[nb]=0;
 	 	Cx[nb] = x;
 	 	Cy[nb] = y;
@@ -311,9 +288,7 @@ public class Graphique extends JPanel {
 	 	Height[nb] = H;
 	 	affiche[nb]=display;
 	 	clickable[nb]=click;
-	 	
 	 	nb++;
-	 	
 		return nb-1;
 	 	
 	 
