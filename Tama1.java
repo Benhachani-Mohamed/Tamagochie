@@ -29,53 +29,16 @@ public class Tama1 extends Tamagochie {
 	int tempE;
 	int a,b,c,d,e;
 	int pluieCompteur;
-	public boolean chargerParam(String nom){
-		int compteur = 0;
-		String str;
-        BufferedReader fis;
-		 try {
-		 fis = new BufferedReader(new FileReader(new File(nom+".txt")));
-		if(fis.ready() == false ){
-          	return false;
-        }
-        str = fis.readLine();
-        fis.close();
-        String[] strp ;
-        strp = str.split("-o-");
-        this.tempC = Integer.parseInt(strp [1]);
-		this.tempE = Integer.parseInt(strp[3]);
-		this.decrementationEau = Integer.parseInt(strp[5]);
-		this.decrementationNour = Integer.parseInt(strp[7]);
-        this.decrementationSom = Integer.parseInt(strp[9]);
-        this.incrementationEau = Integer.parseInt(strp[11]);
-		this.incrementationNour = Integer.parseInt(strp[13]);
-        this.incrementationSom = Integer.parseInt(strp[15]);
-        fis.close(); 
-        return true;
-      } catch (FileNotFoundException e) {
-
-         // Cette exception est levée si l'objet FileInputStream ne trouve
-
-         // aucun fichier
-
-       return false;
-
-      } catch (IOException e) {
-
-         // Celle-ci se produit lors d'une erreur d'écriture ou de lecture
-
-         return false;
-
-      } 
-	}
+	int fondFixe,fond,chargementNaissance,debut,chameauLvl0,chameauLvl2,chameauLvl3;
 	public Tama1()
 	{
 		this.setBorder( BorderFactory.createEmptyBorder())	;
-	   this.addMouseListener(this);
+	   	this.addMouseListener(this);
 		G=new Graphique(800,600,100,100,100);
 		G.addColor(0,150,0,255);
 		G.addColor(255,0,0,255);
-		Kudret=new Moteur("Ardian",true,3,true);
+		Kudret=new Moteur("Ardian",true,3,false);
+		ecouler = new Date();
 		if(Kudret.nouveau)
 		{
 			Kudret.SauvegardeDate();
@@ -87,18 +50,32 @@ public class Tama1 extends Tamagochie {
 		{	
 			Kudret.Charger("sauvegarde");
 			Kudret.ChargerDate("DateDeCreation");
+			float dec = ( ecouler.getTime() - Kudret.getDate(0).getTime() ) / 1000 ;
+			dec = dec * this.decrementationEau;
+			for(int i = 0 ; i < 3 ; i ++ )
+				Kudret.setValeurDec(i,(int)dec);
 		}
 		this.chargerParam("config");
-		ecouler = new Date();	
-		float dec = ( ecouler.getTime() - Kudret.getDate(0).getTime() ) / 1000 ;
-		dec = dec * this.decrementationEau;
-		for(int i = 0 ; i < 3 ; i ++ )
-			Kudret.setValeurDec(i,(int)dec);
-		System.out.println("-------------------------------");
-		Kudret.Afficher();
-		System.out.println("-------------------------------");
 		this.add(G);
-		G.addImgStable("image/fond.gif",0,0,800,600,true,false);		//0
+		imageLoad();
+		G.setColor(11,1);
+		G.setColor(13,1);
+		G.setColor(15,1);
+		G.setColor(21,2);
+		a = 3+this.tempC;
+		b = 3+this.tempC + this.tempE ; 
+		c = 3+(2*this.tempC) + this.tempE;
+		d = 3+(2*this.tempC) + (2*this.tempE);
+		e = 3+(3*this.tempC) + (2*this.tempE);
+		start();
+	}
+	public void start()
+	{
+		new Timer(500, taskPerformer).start();
+	}
+	public void imageLoad()
+	{
+		G.addImgStable("image/fond.gif",0,0,800,600,false,false);		//0
 		G.addImg("image/fond.gif",0,0,800,600,false,false);				//1	
 		G.addImg("image/debut.gif",0,0,800,600,false,false);				//2	
 		G.addImg("image/chameau_lvl_0.gif",0,-100,800,600,false,false);	//3	
@@ -124,197 +101,113 @@ public class Tama1 extends Tamagochie {
 		G.addImgStable("image/eau_click.gif",5,5,50,50,false,false);	//23
 		G.addImgStable("image/nour_click.gif",5,60,50,50,false,false);	//24
 		G.addImg("image/zzz_click.gif",5,115,50,50,false,false);	//25
-		G.setColor(11,1);
-		G.setColor(13,1);
-		G.setColor(15,1);
-		G.setColor(21,2);
-		//---------Test---------------//
-		a = 3+this.tempC;
-		b = 3+this.tempC + this.tempE ; 
-		c = 3+(2*this.tempC) + this.tempE;
-		d = 3+(2*this.tempC) + (2*this.tempE);
-		e = 3+(3*this.tempC) + (2*this.tempE);
-		//Apelle d'un Timer qui effectuera une action chaque seconde
-		 ActionListener taskPerformer = new ActionListener() 
-		 {
-		 	public void clear()
-		 	{
-		 		for(int i = 0 ; i < 6 ; i++)
-						G.affiche[i] = false;
-				for(int i = 7 ; i < 26 ; i++)
-						G.affiche[i] = false;
-				
-		 	}
-		 	public void debut()
-		 	{	
-		 		clear();
-		 		G.affiche[0] = true;
-		 		G.affiche[2] = true;
-		 	}
-		 	public void naissance()
-		 	{
-		 		clear();				
-				G.affiche[12] = true;
-				G.affiche[11] = true;
-		 	}
-		 	public void chargementN()
-		 	{
-		 		clear();
-		 		for( int i = 17 ; i < 20 ; i++ )
-		 			G.affiche[i] = true ; 
-		 	}
-		 	public void chargement()
-		 	{
-		 		clear();
-		 		G.affiche[17] = true;
-		 		G.affiche[20] = true;
-		 	}
-		 	public void niveau0()
-		 	{
-		 		clear();
-		 		G.affiche[0] = true ;
-		 		G.affiche[3] = true;
-		 		for(int i = 7; i < 17 ; i++ )
-		 			G.affiche[i] = true;
-		 	}
-		 	public void niveau(int i)
-			{
-				clear();
-				G.affiche[1] = true ;
-				G.affiche[i+3] = true ;	
-				for(int j = 7 ; j < 17 ; j++ )
-		 			G.affiche[j] = true;	
-			}
-			public void fin()
-			{
-				clear();
-				G.affiche[21] = true;
-				G.affiche[22] = true;
-			}
-			public void decrementation()
-			{
-				for(int i = 0 ; i < 3 ; i++ )
-					Kudret.setDate(i,new Date());
-				Kudret.setValeurDec(0, decrementationEau);
-				Kudret.setValeurDec(1, decrementationNour);
-				Kudret.setValeurDec(2, decrementationSom);
-				Kudret.Sauvegarde();
-			}
-			public float getAge()
-			{
-				ecouler = new Date();
-				float  age = (ecouler.getTime() -  Kudret.getDateNaissance().getTime()) / 1000;
-				return age ;
-			}
-		 	public boolean mort()
-		 	{
-		 			if(Kudret.getValeur(0)*Kudret.getValeur(1)*Kudret.getValeur(2) == 0 )
-		 				return true;
-		 			return false;
-		 	}
-		 	public void pluie()
-		 	{
-		 		System.out.println("azeaea");
-		 		if(G.affiche[6])
-		 			G.affiche[6] = false;
-		 		else
-		 			G.affiche[6] = true; 	
-		 	}
-			public void actionPerformed(ActionEvent evt) 
-			{
-				Kudret.Afficher();
-				
-				G.Width[11] = (int) (100*Kudret.getValeur(0)/500);
-				G.Width[13] = (int) (100*Kudret.getValeur(1)/500);
-				G.Width[15] = (int) (100*Kudret.getValeur(2)/500);
-				it++;
-				G.change(4,""+((new Date()).getTime()-ecouler.getTime()));
-				float age = getAge();
-				Random rnd = new Random();
-				int nombre = rnd.nextInt(100);
-				System.out.println("rnd :  " +nombre);
-				System.out.println("Compteur pluie :  " +pluieCompteur);
-				// --------- PLUIE ----------//
-				if(it%2 == 0)
-				{
-					if(nombre%10 == 0 && pluieCompteur == 0 )
-					{
-			 			pluie();
-			 			pluieCompteur ++ ;
-			 		}
-			 		if(pluieCompteur >0 && pluieCompteur < 10)
-			 		{
-			 			pluieCompteur ++ ;
-			 			decrementation();
-			 		}
-			 		else if(pluieCompteur == 10 )
-			 		{
-			 			pluie();
-			 			pluieCompteur = 0;
-					}
-				}
-				//----------------------------//
-				//---------Age du chameau-------------//
-				System.out.println(G.max);
-				if(mort())
-					fin();
-				//-------Definition du niveau----------------//
-				else if( age > 0 && age < 3 )//oeuf
-					debut();
-				else if( age > 3 && age < a )//chargement debut
-					chargementN();				
-				else if(age > a && age < b)//chameau niveau 0
-					niveau0();			
-				else if(age > b && age < c )//chargement evolution
-					chargement();
-				else if(age >c && age  <d)
-					niveau(1);
-				else if(age > d && age < e )//chargement evolution
-					chargement();
-				else if(age > e)
-					niveau(2);	
-				if(it%2 == 0)
-					decrementation();
-				G.repaint();		
-				
-			}
-		};
-		
-		new Timer(500, taskPerformer).start();
-
 	}
-  public void mouseClicked(MouseEvent event) {
-  
-	int r=G.getMenu(event.getX(),event.getY());
-	System.out.println(r);
-	if(r == 7)
+	public void clear()
 	{
-		Kudret.setValeurInc(0,this.incrementationEau);
-		if(G.affiche[23])
-			G.affiche[23] = false;
-		else
-			G.affiche[23] = true;
-	}	
-	else if(r==8)
-	{	
-		Kudret.setValeurInc(1,this.incrementationNour);
-		if(G.affiche[24])
-			G.affiche[24] = false;
-		else
-			G.affiche[24] = true;
-	}	
-	else if(r == 9)
-	{	
-		Kudret.setValeurInc(2,this.incrementationSom);
-		if(G.affiche[25])
-			G.affiche[25] = false;
-		else
-			G.affiche[25] = true;
-	}	
-	Kudret.Sauvegarde();
-
-	
-  }
+		for(int i = 0 ; i < 6 ; i++)
+			G.affiche[i] = false;
+		for(int i = 7 ; i < 26 ; i++)
+			G.affiche[i] = false;
+				
+	}
+	public void naissance()
+	{
+		G.affiche[0] = true ;
+		G.affiche[2] = true;
+	}
+	public void chargementN()
+	{
+		clear();
+		for( int i = 17 ; i < 20 ; i++ )
+		 	G.affiche[i] = true ; 
+	}
+	public void chargement()
+	{
+		 clear();
+		 G.affiche[17] = true;
+		 G.affiche[20] = true;
+	}
+	public void niveau0()
+	{
+		clear();
+		G.affiche[0] = true ;
+		G.affiche[3] = true;
+		for(int i = 7; i < 17 ; i++ )
+			G.affiche[i] = true;
+	}
+	public void niveau(int i)
+	{
+		clear();
+		G.affiche[1] = true ;
+		G.affiche[i+3] = true ;	
+		for(int j = 7 ; j < 17 ; j++ )
+			G.affiche[j] = true;	
+	}
+	public void fin()
+	{
+		clear();
+		G.affiche[21] = true;
+		G.affiche[22] = true;
+	}
+	public void decrementation()
+	{
+		for(int i = 0 ; i < 3 ; i++ )
+			Kudret.setDate(i,new Date());
+		Kudret.setValeurDec(0, decrementationEau);
+		Kudret.setValeurDec(1, decrementationNour);
+		Kudret.setValeurDec(2, decrementationSom);
+		Kudret.Sauvegarde();
+	}
+	public float getAge()
+	{
+		ecouler = new Date();
+		float  age = (ecouler.getTime() -  Kudret.getDateNaissance().getTime()) / 1000;
+			return age ;
+	}
+	public boolean mort()
+ 	{
+		if(Kudret.getValeur(0)*Kudret.getValeur(1)*Kudret.getValeur(2) == 0 )
+			return true;
+		return false;
+	}
+	public void pluie()
+	{
+		 System.out.println("azeaea");
+		 if(G.affiche[6])
+		 	G.affiche[6] = false;
+		 else
+		 	G.affiche[6] = true; 	
+	}
+  	public void mouseClicked(MouseEvent event)
+	{  
+		int r=G.getMenu(event.getX(),event.getY());
+		System.out.println(r);
+		if(r == 7)
+		{
+			Kudret.setValeurInc(0,this.incrementationEau);
+			if(G.affiche[23])
+				G.affiche[23] = false;
+			else
+				G.affiche[23] = true;
+		}	
+		else if(r==8)
+		{	
+			Kudret.setValeurInc(1,this.incrementationNour);
+			if(G.affiche[24])
+				G.affiche[24] = false;
+			else
+				G.affiche[24] = true;
+		}	
+		else if(r == 9)
+		{	
+			Kudret.setValeurInc(2,this.incrementationSom);
+			if(G.affiche[25])
+				G.affiche[25] = false;
+			else
+				G.affiche[25] = true;
+		}	
+		Kudret.Sauvegarde();
+	}
   
 
   public void mouseEntered(MouseEvent event) {    
@@ -338,4 +231,109 @@ public class Tama1 extends Tamagochie {
  
 
   }   
+	public boolean chargerParam(String nom)
+	{
+		int compteur = 0;
+		String str;
+        BufferedReader fis;
+		try 
+		{
+			fis = new BufferedReader(new FileReader(new File(nom+".txt")));
+			if(fis.ready() == false )
+			{
+		      	return false;
+		    }
+		    str = fis.readLine();
+		    fis.close();
+		    String[] strp ;
+		    strp = str.split("-o-");
+		    this.tempC = Integer.parseInt(strp [1]);
+			this.tempE = Integer.parseInt(strp[3]);
+			this.decrementationEau = Integer.parseInt(strp[5]);
+			this.decrementationNour = Integer.parseInt(strp[7]);
+		    this.decrementationSom = Integer.parseInt(strp[9]);
+		    this.incrementationEau = Integer.parseInt(strp[11]);
+			this.incrementationNour = Integer.parseInt(strp[13]);
+		    this.incrementationSom = Integer.parseInt(strp[15]);
+		    fis.close(); 
+		    return true;
+      	}	 
+		catch (FileNotFoundException e) 
+		{
+
+         // Cette exception est levée si l'objet FileInputStream ne trouve
+
+         // aucun fichier
+
+       		return false;
+
+      	} 
+		catch (IOException e) 
+		{
+
+         // Celle-ci se produit lors d'une erreur d'écriture ou de lecture
+
+         	return false;
+
+      	} 
+	}
+	ActionListener taskPerformer = new ActionListener() 
+	{
+		public void actionPerformed(ActionEvent evt) 
+		{
+			Kudret.Afficher();
+			G.Width[11] = (int) (100*Kudret.getValeur(0)/500);
+			G.Width[13] = (int) (100*Kudret.getValeur(1)/500);
+			G.Width[15] = (int) (100*Kudret.getValeur(2)/500);
+			it++;
+			G.change(4,""+((new Date()).getTime()-ecouler.getTime()));
+			float age = getAge();
+			Random rnd = new Random();
+			int nombre = rnd.nextInt(100);
+			System.out.println("rnd :  " +nombre);
+			System.out.println("Compteur pluie :  " +pluieCompteur);
+			// --------- PLUIE ----------//
+			if(it%2 == 0)
+			{
+				if(nombre%10 == 0 && pluieCompteur == 0 )
+				{
+					pluie();
+		 			pluieCompteur ++ ;
+		 		}
+		 		if(pluieCompteur >0 && pluieCompteur < 10)
+		 		{
+					pluieCompteur ++ ;
+		 			decrementation();
+		 		}
+		 		else if(pluieCompteur == 10 )
+				{
+		 			pluie();
+					pluieCompteur = 0;
+				}
+			}
+			//----------------------------//
+			//---------Age du chameau-------------//
+			System.out.println(G.max);
+			if(mort())
+				fin();
+			else if( age < 3 )//chargement debut
+				naissance();
+			//-------Definition du niveau----------------//
+			else if( age > 3 && age < a )//chargement debut
+				chargementN();				
+			else if(age > a && age < b)//chameau niveau 0
+				niveau0();			
+			else if(age > b && age < c )//chargement evolution
+				chargement();
+			else if(age >c && age  <d)
+				niveau(1);
+			else if(age > d && age < e )//chargement evolution
+				chargement();
+			else if(age > e)
+				niveau(2);	
+			if(it%2 == 0)
+				decrementation();
+			G.repaint();				
+		}
+	};
 }

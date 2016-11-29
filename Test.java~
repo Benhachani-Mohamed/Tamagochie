@@ -18,7 +18,7 @@ public class Test {
 
     
 	Tamagochie A = new Tama1();
-
+	A.start();
 	
 	
 	
