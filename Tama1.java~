@@ -29,6 +29,7 @@ public class Tama1 extends Tamagochie {
 	int tempE;
 	int a,b,c,d,e;
 	int pluieCompteur;
+	boolean chargement;
 	int fondFixe,fond,chargementNaissance,debut,chameauLvl0,chameauLvl2,chameauLvl3;
 	public Tama1()
 	{
@@ -37,6 +38,7 @@ public class Tama1 extends Tamagochie {
 		G=new Graphique(800,600,100,100,100);
 		G.addColor(0,150,0,255);
 		G.addColor(255,0,0,255);
+		G.addColor(255,69,0,255);
 		Kudret=new Moteur("Ardian",true,3,false);
 		ecouler = new Date();
 		if(Kudret.nouveau)
@@ -57,22 +59,30 @@ public class Tama1 extends Tamagochie {
 		}
 		this.chargerParam("config");
 		this.add(G);
+		start();
+	}
+	public void start()
+	{
 		imageLoad();
+		setCouleur();
+		setTime();
+		new Timer(500, taskPerformer).start();
+	}
+	public void setCouleur()
+	{
 		G.setColor(11,1);
 		G.setColor(13,1);
 		G.setColor(15,1);
 		G.setColor(21,2);
+	}
+	public void setTime()
+	{
 		a = 3+this.tempC;
 		b = 3+this.tempC + this.tempE ; 
 		c = 3+(2*this.tempC) + this.tempE;
 		d = 3+(2*this.tempC) + (2*this.tempE);
 		e = 3+(3*this.tempC) + (2*this.tempE);
-		start();
-	}
-	public void start()
-	{
-		new Timer(500, taskPerformer).start();
-	}
+	}	
 	public void imageLoad()
 	{
 		G.addImgStable("image/fond.gif",0,0,800,600,false,false);		//0
@@ -94,13 +104,15 @@ public class Tama1 extends Tamagochie {
 		G.addTexte("Nom : "+Kudret.Nom,600,27,0,0,false,false);//16
 		G.addImg("image/chargement.gif",0,0,800,600,false,false);//17
 		G.addTexte("Votre Oeuf eclot ,",300,100,0,0,false,false);//18
-		G.addTexte("un dromadaire est entrain de naître ...(chargement)",100,150,0,0,false,false);//19
-		G.addTexte("Votre dromadaire évolue !!!",250,100,0,0,false,false);//20
+		G.addTexte(Kudret.Nom+" est entrain de naître ...(chargement)",100,150,0,0,false,false);//19
+		G.addTexte(Kudret.Nom+" évolue !!!",250,100,0,0,false,false);//20
 		G.addRectangle(0,0,800,600,false,false);//21
-		G.addTexte("Votre dromadaire est mort !!!!!",220,295,0,0,false,false);//22
+		G.addTexte(Kudret.Nom+" est mort !!!!!",220,295,0,0,false,false);//22
 		G.addImgStable("image/eau_click.gif",5,5,50,50,false,false);	//23
 		G.addImgStable("image/nour_click.gif",5,60,50,50,false,false);	//24
 		G.addImg("image/zzz_click.gif",5,115,50,50,false,false);	//25
+		G.addTexte(Kudret.Nom+" est malade !!!",370,100,0,0,false,false);//26
+		G.addTexte("Ces point de vie diminuent deux fois plus vite",170,150,0,0,false,false);//27
 	}
 	public void clear()
 	{
@@ -110,20 +122,29 @@ public class Tama1 extends Tamagochie {
 			G.affiche[i] = false;
 				
 	}
+	public void naissance()
+	{
+		chargement = true;
+		G.affiche[0] = true ;
+		G.affiche[2] = true;
+	}
 	public void chargementN()
 	{
+		chargement = true;
 		clear();
 		for( int i = 17 ; i < 20 ; i++ )
 		 	G.affiche[i] = true ; 
 	}
 	public void chargement()
 	{
-		 clear();
-		 G.affiche[17] = true;
-		 G.affiche[20] = true;
+		chargement = true;
+		clear();
+		G.affiche[17] = true;
+		G.affiche[20] = true;
 	}
 	public void niveau0()
 	{
+		chargement = false;
 		clear();
 		G.affiche[0] = true ;
 		G.affiche[3] = true;
@@ -132,6 +153,7 @@ public class Tama1 extends Tamagochie {
 	}
 	public void niveau(int i)
 	{
+		chargement = false;
 		clear();
 		G.affiche[1] = true ;
 		G.affiche[i+3] = true ;	
@@ -140,6 +162,7 @@ public class Tama1 extends Tamagochie {
 	}
 	public void fin()
 	{
+		chargement = true;
 		clear();
 		G.affiche[21] = true;
 		G.affiche[22] = true;
@@ -167,11 +190,19 @@ public class Tama1 extends Tamagochie {
 	}
 	public void pluie()
 	{
-		 System.out.println("azeaea");
-		 if(G.affiche[6])
-		 	G.affiche[6] = false;
-		 else
-		 	G.affiche[6] = true; 	
+		System.out.println("azeaea");
+		if(G.affiche[6])
+		{		
+			G.affiche[6] = false;
+			G.affiche[26] = false;
+			G.affiche[27] = false;		
+		}		
+		else
+		{		
+			G.affiche[6] = true;
+			G.affiche[26] = true;
+			G.affiche[27] = true;		
+		}	
 	}
   	public void mouseClicked(MouseEvent event)
 	{  
@@ -203,29 +234,22 @@ public class Tama1 extends Tamagochie {
 		}	
 		Kudret.Sauvegarde();
 	}
-  
+	public void mouseEntered(MouseEvent event) 
+	{    
 
-  public void mouseEntered(MouseEvent event) {    
-
-
-  }
-
-
-  public void mouseExited(MouseEvent event) {
+	}
+  	public void mouseExited(MouseEvent event) 
+	{
    
+	}
+	public void mousePressed(MouseEvent event) 
+	{
 
-  }
-
-
-  public void mousePressed(MouseEvent event) {
-
-  }
-
-
-  public void mouseReleased(MouseEvent event) {
+ 	}
+	public void mouseReleased(MouseEvent event) 
+	{
  
-
-  }   
+  	}   
 	public boolean chargerParam(String nom)
 	{
 		int compteur = 0;
@@ -272,6 +296,30 @@ public class Tama1 extends Tamagochie {
 
       	} 
 	}
+	public void couleurRectangle()
+	{
+		int eau = Kudret.getValeur(0);
+		int nour = Kudret.getValeur(1);
+		int som  = Kudret.getValeur(2);
+		if(eau < 100)
+			G.setColor(11,2);
+		else if(eau < 400 )
+			G.setColor(11,3);
+		else
+			G.setColor(11,1);
+		if (nour < 100)
+			G.setColor(13,2);		
+		else if(nour < 400 )
+			G.setColor(13,3);
+		else
+			G.setColor(13,1);
+		if(som < 100)
+			G.setColor(15,2);		
+		else if(som < 400 )
+			G.setColor(15,3);
+		else
+			G.setColor(15,1);
+	}
 	ActionListener taskPerformer = new ActionListener() 
 	{
 		public void actionPerformed(ActionEvent evt) 
@@ -286,9 +334,10 @@ public class Tama1 extends Tamagochie {
 			Random rnd = new Random();
 			int nombre = rnd.nextInt(100);
 			System.out.println("rnd :  " +nombre);
-			System.out.println("Compteur pluie :  " +pluieCompteur);
+			System.out.println("Compteur pluie :  " +pluieCompteur); 
+			couleurRectangle();
 			// --------- PLUIE ----------//
-			if(it%2 == 0)
+			if(it%2 == 0 && chargement == false)
 			{
 				if(nombre%10 == 0 && pluieCompteur == 0 )
 				{
