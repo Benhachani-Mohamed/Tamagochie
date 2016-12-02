@@ -193,7 +193,7 @@ public class Moteur {
 		DateDerniereIncrementation=new Date[max];
 	
 	}
-	public boolean add(String Sujeta,int Valeura,String imga,String color){
+	public boolean add(String Sujeta,int Valeura){
 		
 		
 		
