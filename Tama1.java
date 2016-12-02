@@ -29,7 +29,7 @@ public class Tama1 extends Tamagochie {
 	int tempE;
 	int a,b,c,d,e;
 	int pluieCompteur;
-	boolean chargement;
+	boolean chargement = true;
 	int fondFixe,fond,chargementNaissance,debut,chameauLvl0,chameauLvl2,chameauLvl3;
 	public Tama1()
 	{
@@ -39,14 +39,14 @@ public class Tama1 extends Tamagochie {
 		G.addColor(0,150,0,255);
 		G.addColor(255,0,0,255);
 		G.addColor(255,69,0,255);
-		Kudret=new Moteur("Ardian",true,3,true);
+		Kudret=new Moteur("Ardian",true,3,false);
 		ecouler = new Date();
 		if(Kudret.nouveau)
 		{
 			Kudret.SauvegardeDate();
-			Kudret.add("Soif",500," ","Blue");
-			Kudret.add("Faim",500," ","Blue");
-			Kudret.add("Sommeil",500," ","Blue");
+			Kudret.add("Soif",500);
+			Kudret.add("Faim",500);
+			Kudret.add("Sommeil",500);
 		}
 		else
 		{	
@@ -105,13 +105,13 @@ public class Tama1 extends Tamagochie {
 		G.addImg("image/chargement.gif",0,0,800,600,false,false);//17
 		G.addTexte("Votre Oeuf eclot ,",300,100,0,0,false,false);//18
 		G.addTexte(Kudret.Nom+" est entrain de naître ...(chargement)",100,150,0,0,false,false);//19
-		G.addTexte(Kudret.Nom+" évolue !!!",250,100,0,0,false,false);//20
+		G.addTexte(Kudret.Nom+" évolue !!!",300,100,0,0,false,false);//20
 		G.addRectangle(0,0,800,600,false,false);//21
-		G.addTexte(Kudret.Nom+" est mort !!!!!",220,295,0,0,false,false);//22
+		G.addTexte(Kudret.Nom+" est mort !!!!!",280,295,0,0,false,false);//22
 		G.addImgStable("image/eau_click.gif",5,5,50,50,false,false);	//23
 		G.addImgStable("image/nour_click.gif",5,60,50,50,false,false);	//24
 		G.addImg("image/zzz_click.gif",5,115,50,50,false,false);	//25
-		G.addTexte(Kudret.Nom+" est malade !!!",370,100,0,0,false,false);//26
+		G.addTexte(Kudret.Nom+" est malade !!!",300,100,0,0,false,false);//26
 		G.addTexte("Ces point de vie diminuent deux fois plus vite",170,150,0,0,false,false);//27
 	}
 	public void clear()
@@ -134,6 +134,9 @@ public class Tama1 extends Tamagochie {
 		clear();
 		for( int i = 17 ; i < 20 ; i++ )
 		 	G.affiche[i] = true ; 
+		G.affiche[6]  = false; 
+		G.affiche[26] = false;
+		G.affiche[27] = false;
 	}
 	public void chargement()
 	{
@@ -141,6 +144,9 @@ public class Tama1 extends Tamagochie {
 		clear();
 		G.affiche[17] = true;
 		G.affiche[20] = true;
+		G.affiche[6]  = false;		
+		G.affiche[26] = false;
+		G.affiche[27] = false;
 	}
 	public void niveau0()
 	{
@@ -162,10 +168,12 @@ public class Tama1 extends Tamagochie {
 	}
 	public void fin()
 	{
-		chargement = true;
 		clear();
 		G.affiche[21] = true;
 		G.affiche[22] = true;
+		G.affiche[6]  = false;		
+		G.affiche[26] = false;
+		G.affiche[27] = false;
 	}
 	public void decrementation()
 	{
@@ -339,7 +347,7 @@ public class Tama1 extends Tamagochie {
 			// --------- PLUIE ----------//
 			if(it%2 == 0 && chargement == false)
 			{
-				if(nombre%10 == 0 && pluieCompteur == 0 )
+				if(nombre%1 == 0 && pluieCompteur == 0 )
 				{
 					pluie();
 		 			pluieCompteur ++ ;
