@@ -36,30 +36,38 @@ public class Tama1 extends Tamagochie {
 		this.setBorder( BorderFactory.createEmptyBorder())	;
 	   	this.addMouseListener(this);
 		G=new Graphique(800,600,100,100,100);
-		G.addColor(0,150,0,255);
-		G.addColor(255,0,0,255);
-		G.addColor(255,69,0,255);
-		Kudret=new Moteur("Ardian",true,3,false);
 		ecouler = new Date();
-		if(Kudret.nouveau)
+		this.addColor();
+		this.chargerParam("config");
+		this.add(G);
+	}
+	public void nouveau(String nom,boolean sexe)
+	{
+		Kudret=new Moteur(nom,sexe,3,true);
+		Kudret.add("Soif",500);
+		Kudret.add("Faim",500);
+		Kudret.add("Sommeil",500);
+		Kudret.SauvegardeDate();	
+	}
+	public boolean charger()
+	{
+		Kudret=new Moteur("",true,3,false);
+		if(Kudret.Charger("sauvegarde") == true)
 		{
-			Kudret.SauvegardeDate();
-			Kudret.add("Soif",500);
-			Kudret.add("Faim",500);
-			Kudret.add("Sommeil",500);
-		}
-		else
-		{	
-			Kudret.Charger("sauvegarde");
 			Kudret.ChargerDate("DateDeCreation");
 			float dec = ( ecouler.getTime() - Kudret.getDate(0).getTime() ) / 1000 ;
 			dec = dec * this.decrementationEau;
 			for(int i = 0 ; i < 3 ; i ++ )
 				Kudret.setValeurDec(i,(int)dec);
+			return true;		
 		}
-		this.chargerParam("config");
-		this.add(G);
-		start();
+		return false;
+	}
+	public void addColor()
+	{
+		G.addColor(0,150,0,255);
+		G.addColor(255,0,0,255);
+		G.addColor(255,69,0,255);
 	}
 	public void start()
 	{
