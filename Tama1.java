@@ -125,63 +125,63 @@ public class Tama1 extends Tamagochie {
 	public void clear()
 	{
 		for(int i = 0 ; i < 6 ; i++)
-			G.affiche[i] = false;
+			G.setAffiche(i, false);
 		for(int i = 7 ; i < 26 ; i++)
-			G.affiche[i] = false;
+			G.setAffiche(i, false);
 				
 	}
 	public void naissance()
 	{
 		chargement = true;
-		G.affiche[0] = true ;
-		G.affiche[2] = true;
+		G.setAffiche(0, true );
+		G.setAffiche(2, true);
 	}
 	public void chargementN()
 	{
 		chargement = true;
 		clear();
 		for( int i = 17 ; i < 20 ; i++ )
-		 	G.affiche[i] = true ; 
-		G.affiche[6]  = false; 
-		G.affiche[26] = false;
-		G.affiche[27] = false;
+		 	G.setAffiche(i, true) ; 
+		G.setAffiche(6, false); 
+		G.setAffiche(26, false);
+		G.setAffiche(27, false);
 	}
 	public void chargement()
 	{
 		chargement = true;
 		clear();
-		G.affiche[17] = true;
-		G.affiche[20] = true;
-		G.affiche[6]  = false;		
-		G.affiche[26] = false;
-		G.affiche[27] = false;
+		G.setAffiche(17, true);
+		G.setAffiche(20, true);
+		G.setAffiche(6, false);		
+		G.setAffiche(26, false);
+		G.setAffiche(27, false);
 	}
 	public void niveau0()
 	{
 		chargement = false;
 		clear();
-		G.affiche[0] = true ;
-		G.affiche[3] = true;
+		G.setAffiche(0, true );
+		G.setAffiche(3, true);
 		for(int i = 7; i < 17 ; i++ )
-			G.affiche[i] = true;
+			G.setAffiche(i, true);
 	}
 	public void niveau(int i)
 	{
 		chargement = false;
 		clear();
-		G.affiche[1] = true ;
-		G.affiche[i+3] = true ;	
+		G.setAffiche(1, true );
+		G.setAffiche(i+3, true );	
 		for(int j = 7 ; j < 17 ; j++ )
-			G.affiche[j] = true;	
+			G.setAffiche(j, true);	
 	}
 	public void fin()
 	{
 		clear();
-		G.affiche[21] = true;
-		G.affiche[22] = true;
-		G.affiche[6]  = false;		
-		G.affiche[26] = false;
-		G.affiche[27] = false;
+		G.setAffiche(21, true);
+		G.setAffiche(22, true);
+		G.setAffiche(6 ,false);		
+		G.setAffiche(26, false);
+		G.setAffiche(27, false);
 	}
 	public void decrementation()
 	{
@@ -207,17 +207,17 @@ public class Tama1 extends Tamagochie {
 	public void pluie()
 	{
 		System.out.println("azeaea");
-		if(G.affiche[6])
+		if(G.getAffiche(6) == 1)
 		{		
-			G.affiche[6] = false;
-			G.affiche[26] = false;
-			G.affiche[27] = false;		
+			G.setAffiche(6, false);
+			G.setAffiche(26, false);
+			G.setAffiche(27, false);		
 		}		
 		else
 		{		
-			G.affiche[6] = true;
-			G.affiche[26] = true;
-			G.affiche[27] = true;		
+			G.setAffiche(6, true);
+			G.setAffiche(26, true);
+			G.setAffiche(27, true);		
 		}	
 	}
   	public void mouseClicked(MouseEvent event)
@@ -227,26 +227,26 @@ public class Tama1 extends Tamagochie {
 		if(r == 7)
 		{
 			Kudret.setValeurInc(0,this.incrementationEau);
-			if(G.affiche[23])
-				G.affiche[23] = false;
+			if(G.getAffiche(23) == 1)
+				G.setAffiche(23, false);
 			else
-				G.affiche[23] = true;
+				G.setAffiche(23, true);
 		}	
 		else if(r==8)
 		{	
 			Kudret.setValeurInc(1,this.incrementationNour);
-			if(G.affiche[24])
-				G.affiche[24] = false;
+			if(G.getAffiche(24) == 1)
+				G.setAffiche(24, false);
 			else
-				G.affiche[24] = true;
+				G.setAffiche(24, true);
 		}	
 		else if(r == 9)
 		{	
 			Kudret.setValeurInc(2,this.incrementationSom);
-			if(G.affiche[25])
-				G.affiche[25] = false;
+			if(G.getAffiche(25) == 1)
+				G.setAffiche(25, false);
 			else
-				G.affiche[25] = true;
+				G.setAffiche(25, true);
 		}	
 		Kudret.Sauvegarde();
 	}
@@ -273,24 +273,41 @@ public class Tama1 extends Tamagochie {
         BufferedReader fis;
 		try 
 		{
+			int  donné[] = new int [9];
+			/*String[] strp;
 			fis = new BufferedReader(new FileReader(new File(nom+".txt")));
 			if(fis.ready() == false )
 			{
 		      	return false;
 		    }
-		    str = fis.readLine();
-		    fis.close();
-		    String[] strp ;
-		    strp = str.split("-o-");
-		    this.tempC = Integer.parseInt(strp [1]);
-			this.tempE = Integer.parseInt(strp[3]);
-			this.decrementationEau = Integer.parseInt(strp[5]);
-			this.decrementationNour = Integer.parseInt(strp[7]);
-		    this.decrementationSom = Integer.parseInt(strp[9]);
-		    this.incrementationEau = Integer.parseInt(strp[11]);
-			this.incrementationNour = Integer.parseInt(strp[13]);
-		    this.incrementationSom = Integer.parseInt(strp[15]);
-		    fis.close(); 
+			while(fis.hasNextLine())
+			{
+		    	str = fis.readLine();
+		    	fis.close();
+		    	strp = str.split(":");
+			}*/
+			Scanner scanner = new Scanner(new FileReader(nom+".txt"));
+ 			str = null;
+			String[] strp;
+			int i = 1;
+ 			while (i<9) 
+			{
+    			str = scanner.nextLine();
+				strp = str.split(":");
+				//System.out.println(strp[1]);
+				donné[i] = Integer.parseInt(strp[1]);     
+				i++;		
+				// suite du traitement
+ 			}
+		    this.tempC = donné [1];
+			this.tempE = donné[2];
+			this.decrementationEau = donné[3];
+			this.decrementationNour = donné[4];
+		    this.decrementationSom = donné[5];
+		    this.incrementationEau = donné[6];
+			this.incrementationNour = donné[7];
+		    this.incrementationSom = donné[8];
+		    scanner.close(); 
 		    return true;
       	}	 
 		catch (FileNotFoundException e) 
@@ -301,14 +318,6 @@ public class Tama1 extends Tamagochie {
          // aucun fichier
 
        		return false;
-
-      	} 
-		catch (IOException e) 
-		{
-
-         // Celle-ci se produit lors d'une erreur d'écriture ou de lecture
-
-         	return false;
 
       	} 
 	}
@@ -341,9 +350,9 @@ public class Tama1 extends Tamagochie {
 		public void actionPerformed(ActionEvent evt) 
 		{
 			Kudret.Afficher();
-			G.Width[11] = (int) (100*Kudret.getValeur(0)/500);
-			G.Width[13] = (int) (100*Kudret.getValeur(1)/500);
-			G.Width[15] = (int) (100*Kudret.getValeur(2)/500);
+			G.setWidth(11, (int) (100*Kudret.getValeur(0)/500));
+			G.setWidth(13, (int) (100*Kudret.getValeur(1)/500));
+			G.setWidth(15, (int) (100*Kudret.getValeur(2)/500));
 			it++;
 			G.change(4,""+((new Date()).getTime()-ecouler.getTime()));
 			float age = getAge();
@@ -373,7 +382,7 @@ public class Tama1 extends Tamagochie {
 			}
 			//----------------------------//
 			//---------Age du chameau-------------//
-			System.out.println(G.max);
+			//System.out.println(G.max);
 			if(mort())
 				fin();
 			else if( age < 3 )//chargement debut
