@@ -10,7 +10,7 @@ import javax.swing.JButton;
 	abstract void nouveau(String nom,boolean sexe);
 	abstract boolean charger();
 	abstract void start();
-	//aa
+	
 	
 }
 
