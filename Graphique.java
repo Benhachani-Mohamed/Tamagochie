@@ -27,14 +27,14 @@ public class Graphique extends JPanel {
          * @see Graphique#Graphique(int, int, int, int, int) 	
 	 * @see Graphique#clear(Graphics)	
          */
-	int FWidth;
+	private int FWidth;
 	/**
 
          * FHeight sert a conaitre la hauteur de la fenetre, il est utiliser dans la fonction clear(Graphics). 
 	 * @see Graphique#Graphique(int, int, int, int, int) 	
 	 * @see Graphique#clear(Graphics)	
          */
-	int FHeight;
+	private int FHeight;
 
 	/**
          * Img est un tableau qui contient toute les image de l'instance de l'objet Graphique.
@@ -70,37 +70,37 @@ public class Graphique extends JPanel {
 	 * @see Graphique#setFont(int, int) 
 	 	 	 	 	 	 	 	
          */
-	int Cx[];
-	int Cy[];
-	int Width[];
-	int Height[];
-	boolean affiche[];
-	boolean clickable[];
+	private int Cx[];
+	private int Cy[];
+	private int Width[];
+	private int Height[];
+	private boolean affiche[];
+	private boolean clickable[];
 	
-	int type[];
-	int reference[];
+	private int type[];
+	private int reference[];
 	
-	int nb;
-	int nb_texte;
-	int nb_img;
-	int nb_rec;
+	private int nb;
+	private int nb_texte;
+	private int nb_img;
+	private int nb_rec;
 	
-	int max_texte;
-	int max_img;
-	int max_rec;
-	int max_couleur;
-	int max;	
+	private int max_texte;
+	private int max_img;
+	private int max_rec;
+	private int max_couleur;
+	private int max;	
 	
-	int nb_font;
-	int nb_couleur;
+	private int nb_font;
+	private int nb_couleur;
 	
-	Font TFont[];
-	Color Couleur[];
+	private Font TFont[];
+	private Color Couleur[];
 
-	int Id_Font[];
-	int Id_Couleur[];
+	private int Id_Font[];
+	private int Id_Couleur[];
 	
-	int Id_Couleur_Rectangle[];
+	private int Id_Couleur_Rectangle[];
 
  	/**
          * Constructeur de Graphique. 
@@ -256,11 +256,18 @@ public class Graphique extends JPanel {
 	
 		if(nb_img>=max_img)
 			return -1;
-		Toolkit tk = Toolkit.getDefaultToolkit();
-		Img[nb_img] = tk.createImage(path);
-        tk.prepareImage(Img[nb_img] , -1, -1, null);
+			
+			 Toolkit tk = Toolkit.getDefaultToolkit();
+
+        		Img[nb_img] = tk.createImage(path);
+        		tk.prepareImage(Img[nb_img] , -1, -1, null);
+
+
+	 
 		reference[nb]=nb_img;
+		
 		nb_img++;
+		
 		type[nb]=0;
 	 	Cx[nb] = x;
 	 	Cy[nb] = y;
@@ -268,19 +275,65 @@ public class Graphique extends JPanel {
 	 	Height[nb] = H;
 	 	affiche[nb]=display;
 	 	clickable[nb]=click;
+	 	
 	 	nb++;
+	 	
 		return nb-1;
+	 	
+	 
 	}
+	 /**
+
+	 *
+         * Ajoute une Image a l'objet.<b style='color:red'> Cette fonction n'anime pas les Gif</b>
+
+         * 
+         * @param path
+         *            Chemin de l'image.
+         * @param x
+         *            Coordonné Horizontal .
+         * @param y
+         *            Coordonné Vertical .
+         * @param W
+         *           Largeur de l'image.
+         * @param H
+         *           Hauteur de l'image.
+     	 * @param display
+         *            Etat de l'image,est égale true pour l'afficher, false sinon
+         * @param click
+         *           Si l'image est clickable true pour oui, false sinon
+     
+         * @return  Retourne -1 en cas d'erreur ou, l'identifiant du membre. 
+         * @see Graphique#max_img
+         * @see Graphique#Cx
+         * @see Graphique#Cy
+         * @see Graphique#Width
+         * @see Graphique#Height
+         * @see Graphique#affiche
+         * @see Graphique#clickable
+        */
 	public int addImgStable(String path,int x,int y,int W,int H,boolean display,boolean click){
+	
 		if(nb_img>=max_img)
 			return -1;
+			
+
+
         	try {
 	 		Img[nb_img] = ImageIO.read(new File(path));
 	 	} catch (IOException e) {
+
 			 e.printStackTrace();
+
 		} 
+
+
+
+	 
 		reference[nb]=nb_img;
+		
 		nb_img++;
+		
 		type[nb]=0;
 	 	Cx[nb] = x;
 	 	Cy[nb] = y;
@@ -288,7 +341,9 @@ public class Graphique extends JPanel {
 	 	Height[nb] = H;
 	 	affiche[nb]=display;
 	 	clickable[nb]=click;
+	 	
 	 	nb++;
+	 	
 		return nb-1;
 	 	
 	 
@@ -473,7 +528,7 @@ public class Graphique extends JPanel {
          * @param S
          *            Texte pour un texte ou chemin de l'image.
 
-         * @see Graphique#addImage
+         * @see Graphique#addImg
          * @see Graphique#addTexte
 
          */
@@ -646,7 +701,7 @@ public class Graphique extends JPanel {
 
 		return true;
 	}
-		/**
+	/**
 
 	 *
          * Change une Couleur par une autre.
@@ -677,6 +732,287 @@ public class Graphique extends JPanel {
 		return true;
 	
 	}
+	/**
+
+	 *
+         * Met la position horizonal X, a l'élement possedant l'identifiant id
+         * @param id
+         *  	     Identifiant de l'élement		
+         * @param X
+         *           Coordonnée horizonal a mettre
+        
+     
+     
+         * @return True si la Position a était remplacé,false sinon.
+
+
+         */
+	public boolean setPositionX(int id,int X){
+	
+		if( id < nb ){
+			Cx[id]=X;
+			return true;
+		}
+		return false;
+	
+	}
+	/**
+
+	 *
+         * Met la position vertical Y, a l'élement possedant l'identifiant id
+         * @param id
+         *  	     Identifiant de l'élement		
+         * @param Y
+         *           Coordonnée vertical a mettre
+        
+     
+     
+         * @return True si la Position a était remplacé,false sinon.
+
+
+         */
+	public boolean setPositionY(int id,int Y){
+	
+		if( id < nb ){
+			Cy[id]=Y;
+			return true;
+		}
+		return false;
+	
+	}
+	/**
+
+	 *
+         * Met la largeur W, a l'élement possedant l'identifiant id
+         * @param id
+         *  	     Identifiant de l'élement		
+         * @param W
+         *           Largeur a mettre a l'élement
+        
+     
+     
+         * @return True si sa dimension a était mise,false sinon.
+
+
+         */
+	public boolean setWidth(int id,int W){
+	
+		if( id < nb ){
+			Width[id]=W;
+			return true;
+		}
+		return false;
+	
+	}
+	/**
+
+	 *
+         * Met la hauteur H , a l'élement possedant l'identifiant id
+         * @param id
+         *  	     Identifiant de l'élement		
+         * @param H
+         *           Hauteur a mettre a l'élement
+        
+     
+     
+         * @return True si sa dimension a était mise,false sinon.
+
+
+         */
+	public boolean setHeight(int id,int H){
+	
+		if( id < nb ){
+			Height[id]=H;
+			return true;
+		}
+		return false;
+	
+	}
+	/**
+	 *
+         * Change le mode d'affichage de l'element possedant l'identifiant id
+         * @param id
+         *  	     Identifiant de l'élement		
+         * @param A
+         *           Mode d'affichage de l'element a mettre, true pour afficher false sinon.
+        
+     
+     
+         * @return True si le mode a était remplacé,false sinon.
+
+         * @see Graphique#paintComponent
+         */
+	public boolean setAffiche(int id,boolean A){
+	
+		if( id < nb ){
+			affiche[id]=A;
+			return true;
+		}
+		return false;
+	
+	}
+	/**
+	 *
+         * Change le mode de clickabilité de l'element possedant l'identifiant id
+         * @param id
+         *  	     Identifiant de l'élement		
+         * @param C
+         *           Mode de clickabilité de l'element mettre true pour retourner l'identifiant de l'element clické, false sinon.
+        
+     
+     
+         * @return True si le mode a était remplacé,false sinon.
+
+         * @see Graphique#getMenu
+         */
+	public boolean setClickable(int id,boolean C){
+	
+		if( id < nb ){
+			clickable[id]=C;
+			return true;
+		}
+		return false;
+	
+	}
+	
+	/**
+
+	 *
+         * Renvoie position horizonal de l'élement possedant l'identifiant id
+         * @param id
+         *  	     Identifiant de l'élement		
+        
+         * @return  La Position horizontal ou -1.
+
+
+         */
+	public int getPositionX(int id){
+	
+		if( id < nb ){
+			return Cx[id];
+		}
+		return -1;
+	
+	}
+	/**
+
+	 *
+         * Renvoie position vertical de l'élement possedant l'identifiant id
+         * @param id
+         *  	     Identifiant de l'élement		
+        
+         * @return  La Position vertical ou -1.
+
+
+         */
+	public int getPositionY(int id){
+	
+		if( id < nb ){
+			return Cy[id];
+		}
+		return -1;
+	
+	}
+	/**
+
+	 *
+         * Renvoie la largeur de l'élement possedant l'identifiant id
+         * @param id
+         *  	     Identifiant de l'élement		
+        
+     
+     
+         * @return La largeur de l'élement ou -1.
+
+
+         */
+	public int getWidth(int id){
+	
+		if( id < nb ){
+			return Width[id];
+		}
+		return -1;
+	
+	}
+	/**
+
+	 *
+         * Renvoie la hauteur de l'élement possedant l'identifiant id
+         * @param id
+         *  	     Identifiant de l'élement		
+        
+     
+     
+         * @return La hauteur de l'élement ou -1.
+
+
+         */
+	public int getHeight(int id){
+	
+		if( id < nb ){
+			return Height[id];
+		}
+		return -1;
+	
+	}
+	/**
+
+	 *
+         * Renvoie le mode de l'élement possedant l'identifiant id
+         * @param id
+         *  	     Identifiant de l'élement		
+        
+     
+     
+         * @return 1 si l'élement s'affiche,0 si il ne s'affiche pas , -1 en cas d'erreur
+
+
+         */
+	public int getAffiche(int id){
+	
+		if( id < nb ){
+			return affiche[id]?0:1;
+		}
+		return -1;
+	
+	}
+	/**
+
+	 *
+         * Renvoie le mode de l'élement possedant l'identifiant id
+         * @param id
+         *  	     Identifiant de l'élement		
+        
+     
+     
+         * @return 1 si l'élement est clickable ,0 si il ne l'est pas , -1 en cas d'erreur.
+
+
+         */
+	public int getClickable(int id){
+	
+		if( id < nb ){
+			return clickable[id]?0:1;
+		}
+		return -1;
+	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 
