@@ -127,47 +127,52 @@ public class Graphique extends JPanel {
          */
 	public Graphique(int width,int height, int max_img,int max_texte,int max_rec) {
 	
-		FWidth=width;
+		FWidth=width;			//je met taille suposer de l'ecrans
 		FHeight=height;
 
 
 		
 		if(!(max_img<0 || max_texte<0 || max_rec<0)){	//Si aucun max n'est negatif	
 		
-			this.max_img=max_img;
-			this.max_texte=max_texte;
+			this.max_img=max_img;			//alors je les met max de la classe egale 
+			this.max_texte=max_texte;		//au max mis par l'utilisateur
 			this.max_rec=max_rec;
 			
 		}
 		
-		Img=new Image[this.max_img];
-		Texte= new String[this.max_texte];
+		Img=new Image[this.max_img];			//je cree le tableau d'Image
+		Texte= new String[this.max_texte];		// Je cree un tableau de Texte
 	
-		this.max_couleur=this.max_texte+this.max_rec;
+		this.max_couleur=this.max_texte+this.max_rec;	//je met max_couleur egale a la somme des texte est rectangle
 		max=this.max_img+this.max_texte+this.max_rec;
 		
-		Cx=new int[max];
-		Cy=new int[max];
-		Width=new int[max];
-		Height=new int[max];
-		affiche=new boolean[max];
-	 	clickable=new boolean[max];
+		Cx=new int[max];				//Je cree un tableau entier pour stocker la position horizontal
+		Cy=new int[max];				//Je cree un tableau entier pour stocker la position vertical
+		Width=new int[max];				//Je cree un tableau entier pour stocker la largeur
+		Height=new int[max];				//Je cree un tableau entier pour stocker la hauteur
+		affiche=new boolean[max];			//Je cree un tableau boolean pour stocker le mode d'affichage
+	 	clickable=new boolean[max];			//Je cree un tableau boolean pour stocker le mode de clickailité	
 	 	
-	 	type=new int[max];
-	 	reference=new int[max];
+	 	type=new int[max];				//Je cree un tableau entier pour stocker le type de l'element
+	 	reference=new int[max];				//Je cree un tableau entier pour stocker la refernece de l'element
 	 	
-	 	TFont=new Font[max_texte];
-	 	Couleur=new Color[max_couleur];
+	 	if(max_texte>0){				//Si il y'a de quoi cree un Tableau de Font
+	 		 	
+		 	TFont=new Font[max_texte];			//Je cree un tableau Font pour stocker les Font
+		 	TFont[0]= new Font("Courier", Font.BOLD, 20);	//Je cree un premier Font par default
+		 	nb_font =1;					//J'implemente pour dire qu'il ya une Font
+	 	}
+	 							
+	 	if(max_couleur>0){				//Si il y'a de quoi cree un Tableau de couleur
+	 							
+	 		Couleur=new Color[max_couleur];			//Je cree un tableau Couleur pour stocker les Couleur
+		 	Couleur[0] = Color.black;			//Je cree un premier Couleur par default
+		 	nb_couleur=1;					//J'implemente pour dire qu'il ya une Couleur
+	 	}	
 	 	
-	 	TFont[0]= new Font("Courier", Font.BOLD, 20);
-	 	Couleur[0] = Color.black;
-	 	
-	 	nb_font =1;
-	 	nb_couleur=1;
-	 	
-	 	Id_Font=new int[max_texte];
-		Id_Couleur=new int[max_texte];
-		Id_Couleur_Rectangle=new int[max_rec];
+	 	Id_Font=new int[max_texte];			//Je crée un tableau pour avoir l'id de la font de chaque texte
+		Id_Couleur=new int[max_texte];			//Je crée un tableau pour avoir l'id de la couleur de chaque texte
+		Id_Couleur_Rectangle=new int[max_rec];		//Je crée un tableau pour avoir l'id de la couleur de chaque rectangle
 	}
 	/**
 
@@ -184,18 +189,18 @@ public class Graphique extends JPanel {
          * @see Graphique#addRectangle
          */
 	 public void paintComponent(Graphics g){
-		//clear(g);
-	 	 for(int i=0;i<nb;i++){
-	 	 	if(affiche[i]){
-		 	 	if(type[i]==0)
+
+	 	 for(int i=0;i<nb;i++){		//Pour chaque élement Graphique ( image , texte, rectangle) je parcour
+	 	 	if(affiche[i]){			//Si il faut l"afficher
+		 	 	if(type[i]==0)		//Si c'est une image je la dessine
 		 	 		 g.drawImage(Img[reference[i]], Cx[i], Cy[i],Width[i],Height[i], this);
-				else{
-					if(type[i]==1){
+				else{		//Sinon  
+					if(type[i]==1){//si c'est un Texte je le dessine avec sa font et sa couleur
 					    	g.setFont(TFont[Id_Font[reference[i]]]);
 					    	g.setColor(Couleur[Id_Couleur[reference[i]]]);          
 					    	g.drawString(Texte[reference[i]],Cx[i], Cy[i]); 
 					}
-					else{
+					else{//si c'est un Rectangle je le dessine avec sa couleur
 					
 						g.setColor(Couleur[Id_Couleur_Rectangle[reference[i]]]);
     						g.fillRect(Cx[i], Cy[i],Width[i],Height[i]);
@@ -203,10 +208,7 @@ public class Graphique extends JPanel {
 					}
 				}
 			}
-	 	}
-
-
-		 
+	 	}		 
 	}
 	/**
 
@@ -219,8 +221,9 @@ public class Graphique extends JPanel {
          */
 	 public void clear(Graphics g){
 	 
-	    	g.setColor(Color.white);
-    		g.fillRect(0, 0, FWidth, FHeight);
+	    	g.setColor(Color.white);		//met la couleur Blanche
+    		g.fillRect(0, 0, FWidth, FHeight);	//le dessine
+    				
 	 }
 	 /**
 
@@ -254,31 +257,31 @@ public class Graphique extends JPanel {
          */
 	public int addImg(String path,int x,int y,int W,int H,boolean display,boolean click){
 	
-		if(nb_img>=max_img)
+		if(nb_img>=max_img)		//Si le nombre d'image max est depassé je retourne -1
 			return -1;
-			
-			 Toolkit tk = Toolkit.getDefaultToolkit();
+		
+		//Sinon je charge l'image	
+		Toolkit tk = Toolkit.getDefaultToolkit();
+		Img[nb_img] = tk.createImage(path);
+		tk.prepareImage(Img[nb_img] , -1, -1, null);
 
-        		Img[nb_img] = tk.createImage(path);
-        		tk.prepareImage(Img[nb_img] , -1, -1, null);
 
-
-	 
+	 	//Je met sa reference dans le tableau
 		reference[nb]=nb_img;
 		
-		nb_img++;
+		nb_img++;//J'incremente nb_img 
 		
-		type[nb]=0;
-	 	Cx[nb] = x;
+		type[nb]=0;	//je met comme type 0 car c'est une image
+	 	Cx[nb] = x;	//j'implemente les variable avec ce que l'utilisateur a inscrit
 	 	Cy[nb] = y;
 	 	Width[nb] = W;
 	 	Height[nb] = H;
 	 	affiche[nb]=display;
 	 	clickable[nb]=click;
 	 	
-	 	nb++;
+	 	nb++;	//J'incrmente nb pour dire qu'il ya une image en plus
 	 	
-		return nb-1;
+		return nb-1;//je return l'identifaiant de l'element
 	 	
 	 
 	}
@@ -314,11 +317,11 @@ public class Graphique extends JPanel {
         */
 	public int addImgStable(String path,int x,int y,int W,int H,boolean display,boolean click){
 	
-		if(nb_img>=max_img)
+		if(nb_img>=max_img)	//Si le nombre d'image max est depassé je retourne -1
 			return -1;
 			
 
-
+		//Sinon je charge l'image	
         	try {
 	 		Img[nb_img] = ImageIO.read(new File(path));
 	 	} catch (IOException e) {
@@ -327,24 +330,21 @@ public class Graphique extends JPanel {
 
 		} 
 
-
-
-	 
-		reference[nb]=nb_img;
+		reference[nb]=nb_img;//je met la refenrce de l'image
 		
-		nb_img++;
+		nb_img++;	//j'increlente  le nombre d'image
 		
-		type[nb]=0;
-	 	Cx[nb] = x;
+		type[nb]=0;		//je met type a 0 pour dire que c'est une image
+	 	Cx[nb] = x;		//j'implemente les variable avec ce que l'utilisateur a inscrit	
 	 	Cy[nb] = y;
 	 	Width[nb] = W;
 	 	Height[nb] = H;
 	 	affiche[nb]=display;
 	 	clickable[nb]=click;
 	 	
-	 	nb++;
+	 	nb++;			//j'incremente le nombre d'element graphique
 	 	
-		return nb-1;
+		return nb-1;		//je retourne l'identifaint de l'element
 	 	
 	 
 	}
@@ -380,31 +380,29 @@ public class Graphique extends JPanel {
          */
 	public int addTexte(String S,int x,int y,int W,int H,boolean display,boolean click){
 	
-		if(nb_texte>=max_texte)
+		if(nb_texte>=max_texte)	//Si le tableau de Texte est remplis alors je renvoie -1
 			return -1;
 		
-
-	 	Texte[nb_texte] = S;	//ajoute font etc;
-	 	Id_Font[nb_texte] = 0;
-		Id_Couleur[nb_texte] = 0;
+		//Sinon
+	 	Texte[nb_texte] = S;		//je met le Texte
+	 	Id_Font[nb_texte] = 0;		//j'indique la font par default
+		Id_Couleur[nb_texte] = 0;	//j'indique la couleur par default
 		
 		
-		reference[nb]=nb_texte;
-		nb_texte++;
+		reference[nb]=nb_texte;		//je me la reference de l'element
+		nb_texte++;			//j'incremente le nombre de Texte
 		
-		type[nb]=1;
-	 	Cx[nb] = x;
+		type[nb]=1;			//Je met comme type 1 car c'est texte
+	 	Cx[nb] = x;		//j'implemente les variable avec ce que l'utilisateur a inscrit	
 	 	Cy[nb] = y;
 	 	Width[nb] = W;
 	 	Height[nb] = H;
 	 	affiche[nb]=display;
 	 	clickable[nb]=click;
 	 	
-	 	nb++;
+	 	nb++;			//j'incremente le nombre d'element graphique
 	 	
-	 	return nb-1;
-	 	
-	 
+		return nb-1;		//je retourne l'identifaint de l'element	 
 	}
 	 /**
 
@@ -436,27 +434,26 @@ public class Graphique extends JPanel {
          */
 	public int addRectangle(int x,int y,int W,int H,boolean display,boolean click){
 	
-		if(nb_rec>=max_rec)
+		if(nb_rec>=max_rec)	//Si le tableau de rectaglest remplis
 			return -1;
 		
-		Id_Couleur_Rectangle[nb_rec] = 0;
+		Id_Couleur_Rectangle[nb_rec] = 0; //je met la couleur pas default
 		
-		reference[nb]=nb_rec;
+		reference[nb]=nb_rec;		//je met la refenrence de l'objet grphique
 		nb_rec++;
 		
-		type[nb]=2;
-	 	Cx[nb] = x;
+		type[nb]=2;		//Je met 2 car c'est Rectangle
+		Cx[nb] = x;		//j'implemente les variable avec ce que l'utilisateur a inscrit	
 	 	Cy[nb] = y;
 	 	Width[nb] = W;
 	 	Height[nb] = H;
 	 	affiche[nb]=display;
 	 	clickable[nb]=click;
 	 	
-	 	nb++;
+	 	nb++;			//j'incremente le nombre d'element graphique
 	 	
-	 	return nb-1;
-	 	
-	 
+		return nb-1;		//je retourne l'identifaint de l'element
+ 
 	}
 	    
 	  /**
@@ -483,14 +480,15 @@ public class Graphique extends JPanel {
          */
 	public int getMenu(int x,int y){
 	
-		for(int i=nb-1;i>=0;i--){
-			if(clickable[i]){
+		for(int i=nb-1;i>=0;i--){//Pacrour les element graphique
+			if(clickable[i]){//Si il est clickable il verifie leur position 
+						//Il verifie si la position est celle de l'elment
 	 	 		if(x>=Cx[i] && y>=Cy[i] && x<=Cx[i]+Width[i] && y<=Cy[i]+Height[i])
-	 	 			return i;
+	 	 			return i;//Si oui il retourne son identifiant
 	 	 	}
 	 	 }
 
-		return -1;
+		return -1;//si aucun élement clickable n'a cette position je retourne -1
 	}
 		  /**
 
@@ -510,10 +508,10 @@ public class Graphique extends JPanel {
 	public String tString(){
 	
 		String S=nb+"\n";
-		for(int i=nb-1;i>=0;i--)
+		for(int i=nb-1;i>=0;i--)//Je parcours est je concatene
 	 	 	S+=Cx[i] +"  " + Cy[i]+"  "+Width[i]+"  "+Height[i]+"\n"; 
 	 	 	
-	 	 return S;
+	 	 return S;//retourne la chaine de caractere
 	 	 	
 	
 	}
@@ -534,15 +532,15 @@ public class Graphique extends JPanel {
          */
 	public void change(int id,String S){
 	
-			if(id < max){
-		 	 	if(type[id]==0){
-		 	 	
+			if(id < nb){//Si l'identifiant corespond a un element
+		 	 	if(type[id]==0){//Si c'est une image alors
+		 	 				//je change l'image
 					Toolkit tk = Toolkit.getDefaultToolkit();
 					Img[nb_img] = tk.createImage(S);
 					tk.prepareImage(Img[reference[id]] , -1, -1, null);
 		 	 	}
-				else
-					if(type[id]==1)
+				else	//Sinon
+					if(type[id]==1)//Si c'est un Texte je change le Texte
 				    		Texte[reference[id]]=S; 
 			}
 		
@@ -569,13 +567,13 @@ public class Graphique extends JPanel {
          */
 	public int addFont(String name,int style,int size){
 
-		if(nb_font > max_texte )
-			return -1;	
+		if(nb_font >= max_texte )	//Si y'a deja ke nombre max d'image
+			return -1;		//je renvoie -1
 			
-		TFont[nb_font]=new Font(name,style,size);
-		nb_font++;
+		TFont[nb_font]=new Font(name,style,size);//Si je cree une font avec les parmetre 
+		nb_font++;		//j'increment le nombre de font
 
-		return nb_font-1;
+		return nb_font-1;		//je retourne l'identifiant de la font
 
 	}
   	/**
@@ -601,13 +599,13 @@ public class Graphique extends JPanel {
          */
 	public int addColor(int r,int g,int b,int a){
 	
-		if(nb_couleur > max_couleur )
-			return -1;
-			
-		Couleur[nb_couleur]=new Color(r,g,b,a);
-	 	nb_couleur++;
+		if(nb_couleur >= max_couleur )	//je regarde si il y'a la place pour une nouvelle couleur
+			return -1;		//si y'a pas je retourne -1
+						//Sinon
+		Couleur[nb_couleur]=new Color(r,g,b,a);//je met la nouvelle couleur
+	 	nb_couleur++;			//j'increment le nombre d'image
 		
-		return nb_couleur-1;
+		return nb_couleur-1;		//je retourne l'identifiant de la couleur
 
 	}
 	
@@ -630,12 +628,12 @@ public class Graphique extends JPanel {
          */
 	public boolean setFont(int id,int id_font){
 	
-		if(id >= nb || id_font >= nb_font || type[id]!=1)
-			return false;
+		if(id >= nb || id_font >= nb_font || type[id]!=1)//Si l'id de la font ou l'id de l'emenent ne coresponde a aucune font
+			return false;			//ou si ce n'est pas  Texte alors je retourne false
 	
-		Id_Font[reference[id]] = id_font;
+		Id_Font[reference[id]] = id_font; //Sinon je id de la font pour le texte et
 
-		return true;
+		return true;			//je retourne true
 	}
 	
 	/**
