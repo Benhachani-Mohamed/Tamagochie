@@ -125,14 +125,14 @@ public class Graphique extends JPanel {
          * @see Graphique#max_texte
          * @see Graphique#max_rec
          */
-	public Graphique(int width,int height, int max_img,int max_texte,int max_rec) {//metre zone puis en commun avec Texte
+	public Graphique(int width,int height, int max_img,int max_texte,int max_rec) {
 	
 		FWidth=width;
 		FHeight=height;
 
 
 		
-		if(!(max_img<0 || max_texte<0 || max_rec<0)){		
+		if(!(max_img<0 || max_texte<0 || max_rec<0)){	//Si aucun max n'est negatif	
 		
 			this.max_img=max_img;
 			this.max_texte=max_texte;
@@ -971,7 +971,7 @@ public class Graphique extends JPanel {
 	public int getAffiche(int id){
 	
 		if( id < nb ){
-			return affiche[id]?0:1;
+			return affiche[id]?1:0;
 		}
 		return -1;
 	
@@ -992,7 +992,7 @@ public class Graphique extends JPanel {
 	public int getClickable(int id){
 	
 		if( id < nb ){
-			return clickable[id]?0:1;
+			return clickable[id]?1:0;
 		}
 		return -1;
 	
