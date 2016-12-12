@@ -11,8 +11,8 @@ import java.awt.Toolkit ;
 
  import javax.swing.JLabel;
  /**
- * Graphique est une classe de gestion est d'affichage d'element graphique , telle que des image, des texte, ou des regtangle.
- * Son premier but est de decharger le programeur de la contrainte qu'est la programation graphique, afin qu'il se concentre, et recentre ,sur
+ * Graphique est une classe de gestion est d'affichage d'élément graphique , telle que des image, des texte, ou des rectangle.
+ * Son premier but est de décharger le programmeur de la contrainte qu'est la programmation graphique, afin qu'il se concentre, et recentre ,sur
  * son objectif principal. 
  * @see Tamagochie
  * 
@@ -23,14 +23,14 @@ public class Graphique extends JPanel {
 
         /**
 
-         * FWidth sert a conaitre la largeur de la fenetre, il est utiliser dans la fonction clear(Graphics) 
+         * FWidth sert a connaître la largeur de la fenêtre, il est utiliser dans la fonction clear(Graphics) 
          * @see Graphique#Graphique(int, int, int, int, int) 	
 	 * @see Graphique#clear(Graphics)	
          */
 	private int FWidth;
 	/**
 
-         * FHeight sert a conaitre la hauteur de la fenetre, il est utiliser dans la fonction clear(Graphics). 
+         * FHeight sert a connaître la hauteur de la fenêtre, il est utiliser dans la fonction clear(Graphics). 
 	 * @see Graphique#Graphique(int, int, int, int, int) 	
 	 * @see Graphique#clear(Graphics)	
          */
@@ -113,11 +113,11 @@ public class Graphique extends JPanel {
          * @param height
          *            Hauteur de la fenetre.
          * @param max_img
-         *            Nombre Maximum d'image que peut gerer l'objet.
+         *            Nombre Maximum d'image que peut gérer l'objet.
          * @param max_texte
-         *            Nombre Maximum de texte que peut gerer l'objet.
+         *            Nombre Maximum de texte que peut gérer l'objet.
           * @param max_rec
-         *            Nombre Maximum de Rectangle que peut gerer l'objet.
+         *            Nombre Maximum de Rectangle que peut gérer l'objet.
      
          * @see Graphique#FWidth
          * @see Graphique#FHeight
@@ -127,47 +127,47 @@ public class Graphique extends JPanel {
          */
 	public Graphique(int width,int height, int max_img,int max_texte,int max_rec) {
 	
-		FWidth=width;			//je met taille suposer de l'ecrans
+		FWidth=width;			//je met taille supposer de l'écrans
 		FHeight=height;
 
 
 		
-		if(!(max_img<0 || max_texte<0 || max_rec<0)){	//Si aucun max n'est negatif	
+		if(!(max_img<0 || max_texte<0 || max_rec<0)){	//Si aucun max n'est négatif	
 		
-			this.max_img=max_img;			//alors je les met max de la classe egale 
+			this.max_img=max_img;			//alors je les met max de la classe égale 
 			this.max_texte=max_texte;		//au max mis par l'utilisateur
 			this.max_rec=max_rec;
 			
 		}
 		
-		Img=new Image[this.max_img];			//je cree le tableau d'Image
-		Texte= new String[this.max_texte];		// Je cree un tableau de Texte
+		Img=new Image[this.max_img];			//je crée le tableau d'Image
+		Texte= new String[this.max_texte];		// Je crée un tableau de Texte
 	
-		this.max_couleur=this.max_texte+this.max_rec;	//je met max_couleur egale a la somme des texte est rectangle
+		this.max_couleur=this.max_texte+this.max_rec;	//je met max_couleur égale a la somme des texte est rectangle
 		max=this.max_img+this.max_texte+this.max_rec;
 		
-		Cx=new int[max];				//Je cree un tableau entier pour stocker la position horizontal
-		Cy=new int[max];				//Je cree un tableau entier pour stocker la position vertical
-		Width=new int[max];				//Je cree un tableau entier pour stocker la largeur
-		Height=new int[max];				//Je cree un tableau entier pour stocker la hauteur
-		affiche=new boolean[max];			//Je cree un tableau boolean pour stocker le mode d'affichage
-	 	clickable=new boolean[max];			//Je cree un tableau boolean pour stocker le mode de clickailité	
+		Cx=new int[max];				//Je crée un tableau entier pour stocker la position horizontal
+		Cy=new int[max];				//Je crée un tableau entier pour stocker la position vertical
+		Width=new int[max];				//Je crée un tableau entier pour stocker la largeur
+		Height=new int[max];				//Je crée un tableau entier pour stocker la hauteur
+		affiche=new boolean[max];			//Je crée un tableau boolean pour stocker le mode d'affichage
+	 	clickable=new boolean[max];			//Je crée un tableau boolean pour stocker le mode de clickabilité	
 	 	
 	 	type=new int[max];				//Je cree un tableau entier pour stocker le type de l'element
 	 	reference=new int[max];				//Je cree un tableau entier pour stocker la refernece de l'element
 	 	
 	 	if(max_texte>0){				//Si il y'a de quoi cree un Tableau de Font
 	 		 	
-		 	TFont=new Font[max_texte];			//Je cree un tableau Font pour stocker les Font
-		 	TFont[0]= new Font("Courier", Font.BOLD, 20);	//Je cree un premier Font par default
-		 	nb_font =1;					//J'implemente pour dire qu'il ya une Font
+		 	TFont=new Font[max_texte];			//Je crée un tableau Font pour stocker les Font
+		 	TFont[0]= new Font("Courier", Font.BOLD, 20);	//Je crée un premier Font par default
+		 	nb_font =1;					//J'implémente pour dire qu'il ya une Font
 	 	}
 	 							
-	 	if(max_couleur>0){				//Si il y'a de quoi cree un Tableau de couleur
+	 	if(max_couleur>0){				//Si il y'a de quoi crée un Tableau de couleur
 	 							
-	 		Couleur=new Color[max_couleur];			//Je cree un tableau Couleur pour stocker les Couleur
-		 	Couleur[0] = Color.black;			//Je cree un premier Couleur par default
-		 	nb_couleur=1;					//J'implemente pour dire qu'il ya une Couleur
+	 		Couleur=new Color[max_couleur];			//Je crée un tableau Couleur pour stocker les Couleur
+		 	Couleur[0] = Color.black;			//Je crée un premier Couleur par default
+		 	nb_couleur=1;					//J'implémente pour dire qu'il ya une Couleur
 	 	}	
 	 	
 	 	Id_Font=new int[max_texte];			//Je crée un tableau pour avoir l'id de la font de chaque texte
@@ -190,7 +190,7 @@ public class Graphique extends JPanel {
          */
 	 public void paintComponent(Graphics g){
 
-	 	 for(int i=0;i<nb;i++){		//Pour chaque élement Graphique ( image , texte, rectangle) je parcour
+	 	 for(int i=0;i<nb;i++){		//Pour chaque élément Graphique ( image , texte, rectangle) je parcoure
 	 	 	if(affiche[i]){			//Si il faut l"afficher
 		 	 	if(type[i]==0)		//Si c'est une image je la dessine
 		 	 		 g.drawImage(Img[reference[i]], Cx[i], Cy[i],Width[i],Height[i], this);
@@ -257,7 +257,7 @@ public class Graphique extends JPanel {
          */
 	public int addImg(String path,int x,int y,int W,int H,boolean display,boolean click){
 	
-		if(nb_img>=max_img)		//Si le nombre d'image max est depassé je retourne -1
+		if(nb_img>=max_img)		//Si le nombre d'image max est dépasse je retourne -1
 			return -1;
 		
 		//Sinon je charge l'image	
@@ -266,22 +266,22 @@ public class Graphique extends JPanel {
 		tk.prepareImage(Img[nb_img] , -1, -1, null);
 
 
-	 	//Je met sa reference dans le tableau
+	 	//Je met sa référence dans le tableau
 		reference[nb]=nb_img;
 		
-		nb_img++;//J'incremente nb_img 
+		nb_img++;//J'incrémente nb_img 
 		
 		type[nb]=0;	//je met comme type 0 car c'est une image
-	 	Cx[nb] = x;	//j'implemente les variable avec ce que l'utilisateur a inscrit
+	 	Cx[nb] = x;	//j'implémente les variable avec ce que l'utilisateur a inscrit
 	 	Cy[nb] = y;
 	 	Width[nb] = W;
 	 	Height[nb] = H;
 	 	affiche[nb]=display;
 	 	clickable[nb]=click;
 	 	
-	 	nb++;	//J'incrmente nb pour dire qu'il ya une image en plus
+	 	nb++;	//J'incrémente nb pour dire qu'il ya une image en plus
 	 	
-		return nb-1;//je return l'identifaiant de l'element
+		return nb-1;//je return l'identifiant de l'element
 	 	
 	 
 	}
@@ -332,19 +332,19 @@ public class Graphique extends JPanel {
 
 		reference[nb]=nb_img;//je met la refenrce de l'image
 		
-		nb_img++;	//j'increlente  le nombre d'image
+		nb_img++;	//j'incrémente  le nombre d'image
 		
 		type[nb]=0;		//je met type a 0 pour dire que c'est une image
-	 	Cx[nb] = x;		//j'implemente les variable avec ce que l'utilisateur a inscrit	
+	 	Cx[nb] = x;		//j'implémente les variable avec ce que l'utilisateur a inscrit	
 	 	Cy[nb] = y;
 	 	Width[nb] = W;
 	 	Height[nb] = H;
 	 	affiche[nb]=display;
 	 	clickable[nb]=click;
 	 	
-	 	nb++;			//j'incremente le nombre d'element graphique
+	 	nb++;			//j'incrémente le nombre d'element graphique
 	 	
-		return nb-1;		//je retourne l'identifaint de l'element
+		return nb-1;		//je retourne l'identifiant de l'element
 	 	
 	 
 	}
@@ -389,20 +389,20 @@ public class Graphique extends JPanel {
 		Id_Couleur[nb_texte] = 0;	//j'indique la couleur par default
 		
 		
-		reference[nb]=nb_texte;		//je me la reference de l'element
-		nb_texte++;			//j'incremente le nombre de Texte
+		reference[nb]=nb_texte;		//je me la référence de l'element
+		nb_texte++;			//j'incrémente le nombre de Texte
 		
 		type[nb]=1;			//Je met comme type 1 car c'est texte
-	 	Cx[nb] = x;		//j'implemente les variable avec ce que l'utilisateur a inscrit	
+	 	Cx[nb] = x;		//j'implémente les variable avec ce que l'utilisateur a inscrit	
 	 	Cy[nb] = y;
 	 	Width[nb] = W;
 	 	Height[nb] = H;
 	 	affiche[nb]=display;
 	 	clickable[nb]=click;
 	 	
-	 	nb++;			//j'incremente le nombre d'element graphique
+	 	nb++;			//j'incrémente le nombre d'element graphique
 	 	
-		return nb-1;		//je retourne l'identifaint de l'element	 
+		return nb-1;		//je retourne l'identifiant de l'element	 
 	}
 	 /**
 
@@ -434,33 +434,33 @@ public class Graphique extends JPanel {
          */
 	public int addRectangle(int x,int y,int W,int H,boolean display,boolean click){
 	
-		if(nb_rec>=max_rec)	//Si le tableau de rectaglest remplis
+		if(nb_rec>=max_rec)	//Si le tableau de rectangle remplis
 			return -1;
 		
 		Id_Couleur_Rectangle[nb_rec] = 0; //je met la couleur pas default
 		
-		reference[nb]=nb_rec;		//je met la refenrence de l'objet grphique
+		reference[nb]=nb_rec;		//je met la refenrence de l'objet graphique
 		nb_rec++;
 		
 		type[nb]=2;		//Je met 2 car c'est Rectangle
-		Cx[nb] = x;		//j'implemente les variable avec ce que l'utilisateur a inscrit	
+		Cx[nb] = x;		//j'implémente les variable avec ce que l'utilisateur a inscrit	
 	 	Cy[nb] = y;
 	 	Width[nb] = W;
 	 	Height[nb] = H;
 	 	affiche[nb]=display;
 	 	clickable[nb]=click;
 	 	
-	 	nb++;			//j'incremente le nombre d'element graphique
+	 	nb++;			//j'incrémente le nombre d'element graphique
 	 	
-		return nb-1;		//je retourne l'identifaint de l'element
+		return nb-1;		//je retourne l'identifiant de l'element
  
 	}
 	    
 	  /**
 
 	 *
-         * Renvoie l'identifient du membre dans les coordonee (x,y) <b>si il est clickable</b>, plus l'identifiant et grand, 
-         * plus grande est la priorite de l'élement.
+         * Renvoie l'identifient du membre dans les coordonne (x,y) <b>si il est clickable</b>, plus l'identifiant et grand, 
+         * plus grande est la priorité de l'élément.
 
          * 
          * @param x
@@ -469,7 +469,7 @@ public class Graphique extends JPanel {
          *            Coordonné Vertical .
   
      
-         * @return  Retourne -1 si aucun élement clickable n'a était clické, ou l'identifiant du membre clické selon l'ordre de priorite relatif a l'identifiant de l'élement. 
+         * @return  Retourne -1 si aucun élément clickable n'a était clické, ou l'identifiant du membre clické selon l'ordre de priorité relatif a l'identifiant de l'élément. 
 
          * @see Graphique#Cx
          * @see Graphique#Cy
@@ -481,14 +481,14 @@ public class Graphique extends JPanel {
 	public int getMenu(int x,int y){
 	
 		for(int i=nb-1;i>=0;i--){//Pacrour les element graphique
-			if(clickable[i]){//Si il est clickable il verifie leur position 
-						//Il verifie si la position est celle de l'elment
+			if(clickable[i]){//Si il est clickable il vérifie leur position 
+						//Il vérifie si la position est celle de l'element
 	 	 		if(x>=Cx[i] && y>=Cy[i] && x<=Cx[i]+Width[i] && y<=Cy[i]+Height[i])
 	 	 			return i;//Si oui il retourne son identifiant
 	 	 	}
 	 	 }
 
-		return -1;//si aucun élement clickable n'a cette position je retourne -1
+		return -1;//si aucun élément clickable n'a cette position je retourne -1
 	}
 		  /**
 
@@ -497,7 +497,7 @@ public class Graphique extends JPanel {
 
         
      
-         * @return  Retourne une chaine de caractere contenant le nombre d'élement leur dimension et leur coordoné . 
+         * @return  Retourne une chaine de caractère contenant le nombre d'élément leur dimension et leur coordonné . 
 
          * @see Graphique#Cx
          * @see Graphique#Cy
@@ -508,10 +508,10 @@ public class Graphique extends JPanel {
 	public String tString(){
 	
 		String S=nb+"\n";
-		for(int i=nb-1;i>=0;i--)//Je parcours est je concatene
+		for(int i=nb-1;i>=0;i--)//Je parcours est je concatène
 	 	 	S+=Cx[i] +"  " + Cy[i]+"  "+Width[i]+"  "+Height[i]+"\n"; 
 	 	 	
-	 	 return S;//retourne la chaine de caractere
+	 	 return S;//retourne la chaîne de caractère
 	 	 	
 	
 	}
@@ -532,7 +532,7 @@ public class Graphique extends JPanel {
          */
 	public void change(int id,String S){
 	
-			if(id < nb){//Si l'identifiant corespond a un element
+			if(id < nb){//Si l'identifiant correspond a un element
 		 	 	if(type[id]==0){//Si c'est une image alors
 		 	 				//je change l'image
 					Toolkit tk = Toolkit.getDefaultToolkit();
@@ -567,11 +567,11 @@ public class Graphique extends JPanel {
          */
 	public int addFont(String name,int style,int size){
 
-		if(nb_font >= max_texte )	//Si y'a deja ke nombre max d'image
+		if(nb_font >= max_texte )	//Si y'a déjà le nombre max d'image
 			return -1;		//je renvoie -1
 			
-		TFont[nb_font]=new Font(name,style,size);//Si je cree une font avec les parmetre 
-		nb_font++;		//j'increment le nombre de font
+		TFont[nb_font]=new Font(name,style,size);//Si je crée une font avec les parmetre 
+		nb_font++;		//j'incrément le nombre de font
 
 		return nb_font-1;		//je retourne l'identifiant de la font
 
@@ -603,7 +603,7 @@ public class Graphique extends JPanel {
 			return -1;		//si y'a pas je retourne -1
 						//Sinon
 		Couleur[nb_couleur]=new Color(r,g,b,a);//je met la nouvelle couleur
-	 	nb_couleur++;			//j'increment le nombre d'image
+	 	nb_couleur++;			//j'incrément le nombre d'image
 		
 		return nb_couleur-1;		//je retourne l'identifiant de la couleur
 
@@ -628,7 +628,7 @@ public class Graphique extends JPanel {
          */
 	public boolean setFont(int id,int id_font){
 	
-		if(id >= nb || id_font >= nb_font || type[id]!=1)//Si l'id de la font ou l'id de l'emenent ne coresponde a aucune font
+		if(id >= nb || id_font >= nb_font || type[id]!=1)//Si l'id de la font ou l'id de l'element ne corresponde a aucune font
 			return false;			//ou si ce n'est pas  Texte alors je retourne false
 	
 		Id_Font[reference[id]] = id_font; //Sinon je id de la font pour le texte et
@@ -656,15 +656,15 @@ public class Graphique extends JPanel {
 	public boolean setColor(int id,int id_couleur){
 		
 	
-		if(id >= nb || id_couleur >= nb_couleur || type[id]==0)
-			return false;
+		if(id >= nb || id_couleur >= nb_couleur || type[id]==0)//Si l'id ou la couleur n'existe pas je retourne false
+			return false;					//si c'est une image je return false
 			
-		if(type[id] == 1)
+		if(type[id] == 1)				//Si c'est un Texte ou un Rectangle je change la couleur
 			Id_Couleur[reference[id]] = id_couleur;
 		else
 			Id_Couleur_Rectangle[reference[id]] = id_couleur;
 			
-		return true;
+		return true;					//je return true
 	
 	}
 	
@@ -692,12 +692,12 @@ public class Graphique extends JPanel {
          */
 	public boolean changeFont(int id_font,String name,int style,int size){
 	
-		if( id_font >= nb_font )
+		if( id_font >= nb_font )		//Si l'id de la font n'existe pas je return false
 			return false;
 	
-		TFont[id_font]=new Font(name,style,size);
+		TFont[id_font]=new Font(name,style,size);//Sinon je met la nouvelle font		
 
-		return true;
+		return true;					//et je return true
 	}
 	/**
 
@@ -723,21 +723,21 @@ public class Graphique extends JPanel {
 	public boolean changeColor(int id_couleur,int r,int g,int b,int a){
 	
 	
-		if(id_couleur >= nb_couleur )
+		if(id_couleur >= nb_couleur )	//Si la couleur n'existe pas je retourne false
 			return false;
 	
-		Couleur[id_couleur]=new Color(r,g,b,a);
-		return true;
+		Couleur[id_couleur]=new Color(r,g,b,a);//Sinon je change la couleur 
+		return true;				//et je retourne true
 	
 	}
 	/**
 
 	 *
-         * Met la position horizonal X, a l'élement possedant l'identifiant id
+         * Met la position horizonal X, a l'élément possédant l'identifiant id
          * @param id
-         *  	     Identifiant de l'élement		
+         *  	     Identifiant de l'élément		
          * @param X
-         *           Coordonnée horizonal a mettre
+         *           Coordonnée horizontal a mettre
         
      
      
@@ -747,19 +747,19 @@ public class Graphique extends JPanel {
          */
 	public boolean setPositionX(int id,int X){
 	
-		if( id < nb ){
+		if( id < nb ){		//Si l'id existe je met la nouvelle position et je retourne true
 			Cx[id]=X;
 			return true;
 		}
-		return false;
+		return false;		//Sinon je retourn false
 	
 	}
 	/**
 
 	 *
-         * Met la position vertical Y, a l'élement possedant l'identifiant id
+         * Met la position vertical Y, a l'élément possédant l'identifiant id
          * @param id
-         *  	     Identifiant de l'élement		
+         *  	     Identifiant de l'élément		
          * @param Y
          *           Coordonnée vertical a mettre
         
@@ -771,21 +771,21 @@ public class Graphique extends JPanel {
          */
 	public boolean setPositionY(int id,int Y){
 	
-		if( id < nb ){
+		if( id < nb ){		//Si l'id existe je met la nouvelle position et je retourne true
 			Cy[id]=Y;
 			return true;
 		}
-		return false;
+		return false;		//Sinon je retourne false
 	
 	}
 	/**
 
 	 *
-         * Met la largeur W, a l'élement possedant l'identifiant id
+         * Met la largeur W, a l'élément possédant l'identifiant id
          * @param id
-         *  	     Identifiant de l'élement		
+         *  	     Identifiant de l'élément		
          * @param W
-         *           Largeur a mettre a l'élement
+         *           Largeur a mettre a l'élément
         
      
      
@@ -795,21 +795,21 @@ public class Graphique extends JPanel {
          */
 	public boolean setWidth(int id,int W){
 	
-		if( id < nb ){
+		if( id < nb ){		//Si l'id existe je met la nouvelle largeur et je retourne true
 			Width[id]=W;
 			return true;
 		}
-		return false;
+		return false;		//Sinon je retourne false
 	
 	}
 	/**
 
 	 *
-         * Met la hauteur H , a l'élement possedant l'identifiant id
+         * Met la hauteur H , a l'élément possédant l'identifiant id
          * @param id
-         *  	     Identifiant de l'élement		
+         *  	     Identifiant de l'élément		
          * @param H
-         *           Hauteur a mettre a l'élement
+         *           Hauteur a mettre a l'élément
         
      
      
@@ -819,18 +819,18 @@ public class Graphique extends JPanel {
          */
 	public boolean setHeight(int id,int H){
 	
-		if( id < nb ){
+		if( id < nb ){		//Si l'id existe je met la nouvelle hauteur et je retourne true
 			Height[id]=H;
 			return true;
 		}
-		return false;
+		return false;		//Sinon je retourne false
 	
 	}
 	/**
 	 *
-         * Change le mode d'affichage de l'element possedant l'identifiant id
+         * Change le mode d'affichage de l'element possédant l'identifiant id
          * @param id
-         *  	     Identifiant de l'élement		
+         *  	     Identifiant de l'élément		
          * @param A
          *           Mode d'affichage de l'element a mettre, true pour afficher false sinon.
         
@@ -842,18 +842,18 @@ public class Graphique extends JPanel {
          */
 	public boolean setAffiche(int id,boolean A){
 	
-		if( id < nb ){
+		if( id < nb ){		//Si l'id existe je met la nouveau mode d'affichage et je retourne true
 			affiche[id]=A;
 			return true;
 		}
-		return false;
+		return false;		//Sinon je retourne false
 	
 	}
 	/**
 	 *
-         * Change le mode de clickabilité de l'element possedant l'identifiant id
+         * Change le mode de clickabilité de l'element possédant l'identifiant id
          * @param id
-         *  	     Identifiant de l'élement		
+         *  	     Identifiant de l'élément		
          * @param C
          *           Mode de clickabilité de l'element mettre true pour retourner l'identifiant de l'element clické, false sinon.
         
@@ -865,20 +865,20 @@ public class Graphique extends JPanel {
          */
 	public boolean setClickable(int id,boolean C){
 	
-		if( id < nb ){
+		if( id < nb ){		//Si l'id existe je met la nouveau mode e clickabilité et je retourne true
 			clickable[id]=C;
 			return true;
 		}
-		return false;
+		return false;		//Sinon je retourne false
 	
 	}
 	
 	/**
 
 	 *
-         * Renvoie position horizonal de l'élement possedant l'identifiant id
+         * Renvoie position horizontal de l'élément possédant l'identifiant id
          * @param id
-         *  	     Identifiant de l'élement		
+         *  	     Identifiant de l'élément		
         
          * @return  La Position horizontal ou -1.
 
@@ -886,18 +886,18 @@ public class Graphique extends JPanel {
          */
 	public int getPositionX(int id){
 	
-		if( id < nb ){
+		if( id < nb ){		//Si l'id existe je renvoie la position horizontal 
 			return Cx[id];
 		}
-		return -1;
-	
+		return -1;		//Sinon je retourne -1
+			
 	}
 	/**
 
 	 *
-         * Renvoie position vertical de l'élement possedant l'identifiant id
+         * Renvoie position vertical de l'élément possédant l'identifiant id
          * @param id
-         *  	     Identifiant de l'élement		
+         *  	     Identifiant de l'élément		
         
          * @return  La Position vertical ou -1.
 
@@ -905,113 +905,96 @@ public class Graphique extends JPanel {
          */
 	public int getPositionY(int id){
 	
-		if( id < nb ){
+		if( id < nb ){		//Si l'id existe je renvoie la position vertical 
 			return Cy[id];
 		}
-		return -1;
+		return -1;		//Sinon je retourne -1
 	
 	}
 	/**
 
 	 *
-         * Renvoie la largeur de l'élement possedant l'identifiant id
+         * Renvoie la largeur de l'élément possédant l'identifiant id
          * @param id
-         *  	     Identifiant de l'élement		
+         *  	     Identifiant de l'élément		
         
      
      
-         * @return La largeur de l'élement ou -1.
+         * @return La largeur de l'élément ou -1.
 
 
          */
 	public int getWidth(int id){
 	
-		if( id < nb ){
+		if( id < nb ){		//Si l'id existe je renvoie la largeur 
 			return Width[id];
 		}
-		return -1;
+		return -1;		//Sinon je retourne -1
 	
 	}
 	/**
 
 	 *
-         * Renvoie la hauteur de l'élement possedant l'identifiant id
+         * Renvoie la hauteur de l'élément possédant l'identifiant id
          * @param id
-         *  	     Identifiant de l'élement		
+         *  	     Identifiant de l'élément		
         
      
      
-         * @return La hauteur de l'élement ou -1.
+         * @return La hauteur de l'élément ou -1.
 
 
          */
 	public int getHeight(int id){
 	
-		if( id < nb ){
+		if( id < nb ){		//Si l'id existe je renvoie la hauteur 
 			return Height[id];
 		}
-		return -1;
+		return -1;		//Sinon je retourne -1
 	
 	}
 	/**
 
 	 *
-         * Renvoie le mode de l'élement possedant l'identifiant id
+         * Renvoie le mode de l'élément possédant l'identifiant id
          * @param id
-         *  	     Identifiant de l'élement		
+         *  	     Identifiant de l'élément		
         
      
      
-         * @return 1 si l'élement s'affiche,0 si il ne s'affiche pas , -1 en cas d'erreur
+         * @return 1 si l'élément s'affiche,0 si il ne s'affiche pas , -1 en cas d'erreur
 
 
          */
 	public int getAffiche(int id){
 	
-		if( id < nb ){
+		if( id < nb ){		//Si l'id existe je renvoie 1 s'il s'affiche 0 sinon
 			return affiche[id]?1:0;
 		}
-		return -1;
+		return -1;		//et -1 si l'id n'existe pas
 	
 	}
 	/**
 
 	 *
-         * Renvoie le mode de l'élement possedant l'identifiant id
+         * Renvoie le mode de l'élément possédant l'identifiant id
          * @param id
-         *  	     Identifiant de l'élement		
+         *  	     Identifiant de l'élément		
         
      
      
-         * @return 1 si l'élement est clickable ,0 si il ne l'est pas , -1 en cas d'erreur.
+         * @return 1 si l'élément est clickable ,0 si il ne l'est pas , -1 en cas d'erreur.
 
 
          */
 	public int getClickable(int id){
 	
-		if( id < nb ){
+		if( id < nb ){		//Si l'id existe je renvoie 1 s'il s'affiche 0 sinon
 			return clickable[id]?1:0;
 		}
-		return -1;
+		return -1;		//et -1 si l'id n'existe pas
 	
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 
 }
