@@ -18,19 +18,19 @@ import java.io.IOException;
 import java.io.File;
 import java.util.*; 
 public class Tama1 extends Tamagochie { 
-
- 	Graphique G;
-	Moteur Kudret;
-	int it;
-	Date ecouler;
-	int decrementationEau,decrementationNour,decrementationSom;
-	int incrementationEau,incrementationNour,incrementationSom;
-	int tempC;
-	int tempE;
-	int a,b,c,d,e;
-	int pluieCompteur;
-	boolean chargement = true;
-	int fondFixe,fond,chargementNaissance,debut,chameauLvl0,chameauLvl2,chameauLvl3;
+	private Timer t;
+ 	private Graphique G;
+	private Moteur Kudret;
+	private int it;
+	private Date ecouler;
+	private int decrementationEau,decrementationNour,decrementationSom;
+	private int incrementationEau,incrementationNour,incrementationSom;
+	private int tempC;
+	private int tempE;
+	private int a,b,c,d,e;
+	private int pluieCompteur;
+	private boolean chargement = true;
+	private int fondFixe,fond,chargementNaissance,debut,chameauLvl0,chameauLvl2,chameauLvl3;
 	public Tama1()
 	{
 		this.setBorder( BorderFactory.createEmptyBorder())	;
@@ -41,6 +41,12 @@ public class Tama1 extends Tamagochie {
 		this.chargerParam("config");
 		this.add(G);
 	}
+	/**
+ 		* Créer un nouveau tamagoschie.
+ 		* @param nom  Nom du tamagoschie
+ 		* @param sexe Sexe du tamagoschie 
+ 		* @return Rien	
+ 	*/
 	public void nouveau(String nom,boolean sexe)
 	{
 		Kudret=new Moteur(nom,sexe,3,true);
@@ -49,6 +55,10 @@ public class Tama1 extends Tamagochie {
 		Kudret.add("Sommeil",500);
 		Kudret.SauvegardeDate();	
 	}
+	/**
+ 		* Charger un tamagoschie existant
+ 		* @return True si le chargement a reussi False si la recharge n'a pas reussi	
+ 	*/
 	public boolean charger()
 	{
 		Kudret=new Moteur("",true,3,false);
@@ -63,26 +73,43 @@ public class Tama1 extends Tamagochie {
 		}
 		return false;
 	}
+	/**
+ 		* Dans cette fonction on ajoute les couleurs dont on a besoin .
+ 		* @return Rien	
+ 	*/
 	public void addColor()
 	{
 		G.addColor(0,150,0,255);
 		G.addColor(255,0,0,255);
 		G.addColor(255,69,0,255);
 	}
+	/**
+ 		* Cette fonction lance le Timer.
+ 		* @return Rien	
+ 	*/
 	public void start()
 	{
 		imageLoad();
 		setCouleur();
 		setTime();
-		new Timer(500, taskPerformer).start();
+		t =new Timer(500, taskPerformer);
+		t.start();
 	}
+	/**
+ 		* Cette fonction attribuent une couleur a differents rectangles.
+ 		* @return Rien	
+ 	*/
 	public void setCouleur()
 	{
-		G.setColor(11,1);
+		G.setColor(11,1);//on attribe la couleur 1 au rectangle 11;
 		G.setColor(13,1);
 		G.setColor(15,1);
 		G.setColor(21,2);
 	}
+	/**
+ 		* Cette fonction calcul les temps entre chaque evolutiion ... en fonction des variable recupérer dans le fichier config.txt.
+ 		* @return Rien	
+ 	*/
 	public void setTime()
 	{
 		a = 3+this.tempC;
@@ -91,9 +118,13 @@ public class Tama1 extends Tamagochie {
 		d = 3+(2*this.tempC) + (2*this.tempE);
 		e = 3+(3*this.tempC) + (2*this.tempE);
 	}	
+	/**
+ 		* Cette fonction charge toutes les images nécessaire au bon fonctionnement du tamagoschie.
+ 		* @return Rien	
+ 	*/
 	public void imageLoad()
 	{
-		G.addImgStable("image/fond.gif",0,0,800,600,false,false);		//0
+		G.addImgStable("image/fond.gif",0,0,800,600,false,false);		//0	Ce chiffre correspond a l'indice de cette image dans le tableau des image
 		G.addImg("image/fond.gif",0,0,800,600,false,false);				//1	
 		G.addImg("image/debut.gif",0,0,800,600,false,false);				//2	
 		G.addImg("image/chameau_lvl_0.gif",0,-100,800,600,false,false);	//3	
@@ -109,19 +140,23 @@ public class Tama1 extends Tamagochie {
 		G.addRectangle(60,75,100,20,false,false);//13
 		G.addRectangle(59,129,102,22,false,false);//14
 		G.addRectangle(60,130,100,20,false,false);//15
-		G.addTexte("Nom : "+Kudret.Nom,600,27,0,0,false,false);//16
+		G.addTexte("Nom : "+Kudret.getNom(),600,27,0,0,false,false);//16
 		G.addImg("image/chargement.gif",0,0,800,600,false,false);//17
 		G.addTexte("Votre Oeuf eclot ,",300,100,0,0,false,false);//18
-		G.addTexte(Kudret.Nom+" est entrain de naître ...(chargement)",100,150,0,0,false,false);//19
-		G.addTexte(Kudret.Nom+" évolue !!!",300,100,0,0,false,false);//20
+		G.addTexte(Kudret.getNom()+" est entrain de naître ...(chargement)",100,150,0,0,false,false);//19
+		G.addTexte(Kudret.getNom()+" évolue !!!",300,100,0,0,false,false);//20
 		G.addRectangle(0,0,800,600,false,false);//21
-		G.addTexte(Kudret.Nom+" est mort !!!!!",280,295,0,0,false,false);//22
+		G.addTexte(Kudret.getNom()+" est mort !!!!!",280,295,0,0,false,false);//22
 		G.addImgStable("image/eau_click.gif",5,5,50,50,false,false);	//23
 		G.addImgStable("image/nour_click.gif",5,60,50,50,false,false);	//24
 		G.addImg("image/zzz_click.gif",5,115,50,50,false,false);	//25
-		G.addTexte(Kudret.Nom+" est malade !!!",300,100,0,0,false,false);//26
+		G.addTexte(Kudret.getNom()+" est malade !!!",300,100,0,0,false,false);//26
 		G.addTexte("Ces point de vie diminuent deux fois plus vite",170,150,0,0,false,false);//27
 	}
+	/**
+ 		* Cette fonction met tous les affichage de toutes les images a FALSE.
+ 		* @return Rien	
+ 	*/
 	public void clear()
 	{
 		for(int i = 0 ; i < 6 ; i++)
@@ -130,12 +165,20 @@ public class Tama1 extends Tamagochie {
 			G.setAffiche(i, false);
 				
 	}
+	/**
+ 		* Cette fonction met a True les images nécessaire pour  la scène de naissance
+ 		* @return Rien	
+ 	*/
 	public void naissance()
 	{
 		chargement = true;
 		G.setAffiche(0, true );
 		G.setAffiche(2, true);
 	}
+	/**
+ 		* Cette fonction met a True les images nécessaire pour  la scène de chargement de la naissance
+ 		* @return Rien	
+ 	*/
 	public void chargementN()
 	{
 		chargement = true;
@@ -146,6 +189,11 @@ public class Tama1 extends Tamagochie {
 		G.setAffiche(26, false);
 		G.setAffiche(27, false);
 	}
+	
+	/**
+ 		* Cette fonction met a True les images nécessaire pour  la scène de chargement entre evolution
+ 		* @return Rien	
+ 	*/
 	public void chargement()
 	{
 		chargement = true;
@@ -156,6 +204,11 @@ public class Tama1 extends Tamagochie {
 		G.setAffiche(26, false);
 		G.setAffiche(27, false);
 	}
+	
+	/**
+ 		* Cette fonction met a True les images nécessaire pour  la scène du niveau 0 
+ 		* @return Rien	
+ 	*/
 	public void niveau0()
 	{
 		chargement = false;
@@ -165,6 +218,12 @@ public class Tama1 extends Tamagochie {
 		for(int i = 7; i < 17 ; i++ )
 			G.setAffiche(i, true);
 	}
+	
+	/**
+ 		* Cette fonction met a True les images nécessaire pour  la scène des niveau 1 et 2
+ 		*@param i Numero du niveau(1 ou 2)
+ 		* @return Rien	
+ 	*/
 	public void niveau(int i)
 	{
 		chargement = false;
@@ -174,6 +233,11 @@ public class Tama1 extends Tamagochie {
 		for(int j = 7 ; j < 17 ; j++ )
 			G.setAffiche(j, true);	
 	}
+	
+	/**
+ 		* Cette fonction met a True les images nécessaire pour  la scène de la fin
+ 		* @return Rien	
+ 	*/
 	public void fin()
 	{
 		clear();
@@ -183,6 +247,11 @@ public class Tama1 extends Tamagochie {
 		G.setAffiche(26, false);
 		G.setAffiche(27, false);
 	}
+	
+	/**
+ 		* Cette fonction décrémente les trois variables eau,nourriture et sommeil 
+ 		* @return Rien	
+ 	*/
 	public void decrementation()
 	{
 		for(int i = 0 ; i < 3 ; i++ )
@@ -192,18 +261,36 @@ public class Tama1 extends Tamagochie {
 		Kudret.setValeurDec(2, decrementationSom);
 		Kudret.Sauvegarde();
 	}
+	
+	/**
+ 		* Cette fonction calcul l'age du tamagoschie
+ 		* @return L'age	
+ 	*/
 	public float getAge()
 	{
 		ecouler = new Date();
 		float  age = (ecouler.getTime() -  Kudret.getDateNaissance().getTime()) / 1000;
 			return age ;
 	}
+	
+	/**
+ 		* Cette fonction vérifier si le tamagotschie est bien vivant
+ 		* @return True si le tamagoschie est mort False sinon	
+ 	*/
 	public boolean mort()
  	{
 		if(Kudret.getValeur(0)*Kudret.getValeur(1)*Kudret.getValeur(2) == 0 )
+		{
+			t.stop(); 
 			return true;
+		}
 		return false;
 	}
+	
+	/**
+ 		* Cette fonction met a True les images nécessaire pour  la scène de pluie
+ 		* @return Rien	
+ 	*/
 	public void pluie()
 	{
 		System.out.println("azeaea");
@@ -220,6 +307,11 @@ public class Tama1 extends Tamagochie {
 			G.setAffiche(27, true);		
 		}	
 	}
+	
+	/**
+ 		* Cette fonction capte les clicks des utilisateurs 
+ 		* @return Rien	
+ 	*/
   	public void mouseClicked(MouseEvent event)
 	{  
 		int r=G.getMenu(event.getX(),event.getY());
@@ -266,6 +358,11 @@ public class Tama1 extends Tamagochie {
 	{
  
   	}   
+  	
+	/**
+ 		* Cette fonction les parametres present dans le fichier config.txt
+ 		* @return True si le chargement a reussi ,False sinon	
+ 	*/
 	public boolean chargerParam(String nom)
 	{
 		int compteur = 0;
@@ -274,18 +371,6 @@ public class Tama1 extends Tamagochie {
 		try 
 		{
 			int  donné[] = new int [9];
-			/*String[] strp;
-			fis = new BufferedReader(new FileReader(new File(nom+".txt")));
-			if(fis.ready() == false )
-			{
-		      	return false;
-		    }
-			while(fis.hasNextLine())
-			{
-		    	str = fis.readLine();
-		    	fis.close();
-		    	strp = str.split(":");
-			}*/
 			Scanner scanner = new Scanner(new FileReader(nom+".txt"));
  			str = null;
 			String[] strp;
@@ -294,10 +379,8 @@ public class Tama1 extends Tamagochie {
 			{
     			str = scanner.nextLine();
 				strp = str.split(":");
-				//System.out.println(strp[1]);
 				donné[i] = Integer.parseInt(strp[1]);     
 				i++;		
-				// suite du traitement
  			}
 		    this.tempC = donné [1];
 			this.tempE = donné[2];
@@ -312,15 +395,16 @@ public class Tama1 extends Tamagochie {
       	}	 
 		catch (FileNotFoundException e) 
 		{
-
          // Cette exception est levée si l'objet FileInputStream ne trouve
-
          // aucun fichier
-
        		return false;
-
       	} 
 	}
+	
+	/**
+ 		* Cette fonction change la couleur des rectangle par rapport a la valuer de la variable correspondante(vert/orange/rouge)
+ 		* @return Rien	
+ 	*/
 	public void couleurRectangle()
 	{
 		int eau = Kudret.getValeur(0);
@@ -345,8 +429,14 @@ public class Tama1 extends Tamagochie {
 		else
 			G.setColor(15,1);
 	}
+	
 	ActionListener taskPerformer = new ActionListener() 
 	{
+		
+		/**
+ 			* Cette fonction va être appeler chaque demi seconde par le timer et va appeler telle ou telles fonction qui  va  afficher telle ou telles scène suivant l'age et l'etat de vie du tamagotschie 
+ 			* @return Rien	
+ 		*/
 		public void actionPerformed(ActionEvent evt) 
 		{
 			Kudret.Afficher();
@@ -358,8 +448,6 @@ public class Tama1 extends Tamagochie {
 			float age = getAge();
 			Random rnd = new Random();
 			int nombre = rnd.nextInt(100);
-			System.out.println("rnd :  " +nombre);
-			System.out.println("Compteur pluie :  " +pluieCompteur); 
 			couleurRectangle();
 			// --------- PLUIE ----------//
 			if(it%2 == 0 && chargement == false)

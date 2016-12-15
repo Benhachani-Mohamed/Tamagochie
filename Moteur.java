@@ -13,27 +13,29 @@ import java.io.BufferedReader;
 import java.lang.*;
 public class Moteur {
 	
-	String Nom;
-	Date DateNaissance;
-	boolean vie;
-	boolean Sexe;
-	boolean nouveau;
-	int nb_variable;
-	int max;
-	String Sujet[];
-	int Valeur[];
-	Date DateDerniereIncrementation[];
-
-
+	private String Nom;
+ 	private Date DateNaissance;
+	private boolean vie;
+	private boolean Sexe;
+	private boolean nouveau;
+	private int nb_variable;
+	private int max;
+	private String Sujet[];
+	private int Valeur[];
+	private Date DateDerniereIncrementation[];
 	
-	/*public static void main(String[] args){
-		
-		Moteur L = new Moteur("lol",true,5);
-		L.add("Faim",0,"./750.jpg","Blue");
-	   	L.add("Propreter ",2,"./751.jpg","Green");
-	   	System.out.println(L.toString());
-	    L.Sauvegarde();
-	}   */
+	/**
+ 		* Cette fonction renvoie le nom du tamagotschie
+ 		* @return le Nom du tamagotschie
+ 	*/
+	public String getNom()
+	{
+		return Nom;
+	}
+	/**
+ 		* Cette fonction sauvegarde la date de naissance du tama
+ 		* @return Rien	
+ 	*/
 	public  void SauvegardeDate()
 	{
 		FileWriter fos = null;
@@ -67,6 +69,11 @@ public class Moteur {
 	         }
 		}
 	}
+	
+	/**
+ 		* Cette fonction sauvegarde les paramétre du tama (Nom,sexe,sujet(eau,nour,someil),valeur("","",""),date de dernière  modification des variables précédentes
+ 		* @return Rien	
+ 	*/
 	public  void Sauvegarde()
 	{
 		FileWriter fos = null;
@@ -103,6 +110,11 @@ public class Moteur {
 	         }
 		}
 	}
+	
+	/**
+ 		* Cette fonction charge la date de naissance
+ 		* @return True si le chargement a reussi False sinon	
+ 	*/
 	public boolean ChargerDate(String nom){
 		int compteur = 0;
 		String str;
@@ -132,6 +144,11 @@ public class Moteur {
 
       } 
 	}
+	
+	/**
+ 		*  Cette fonction charge les paramétre du tama (Nom,sexe,sujet(eau,nour,someil),valeur("","",""),date de dernière  modification des variables précédentes
+ 		* @return Rien	
+ 	*/
 	public boolean Charger(String nom){
 		int compteur = 0;
 		String str;
@@ -179,6 +196,14 @@ public class Moteur {
 
       } 
 	}
+	/**
+ 		* Cette fonction est le constructeur de Moteur
+ 		*@param Nom nom du tama
+ 		*@param Sexe  sexe du tama
+ 		*@param max nombres de variable(eau,nour,sommeil) 
+ 		*@param nouveau True si on créé un nouveau tama False sinon
+ 		* @return Rien	
+ 	*/
 	public Moteur(String Nom,boolean Sexe,int max,boolean nouveau){
 		
 		this.Nom=Nom;
@@ -193,10 +218,14 @@ public class Moteur {
 		DateDerniereIncrementation=new Date[max];
 	
 	}
-	public boolean add(String Sujeta,int Valeura){
-		
-		
-		
+	/**
+ 		* Cette fonction ajoute une variable dans les tableaux des variables
+ 		*@param Nom nom du tama
+ 		*@param Sexe  sexe du tama
+ 		* @return True si l'ajout a été fair False sinon
+ 	*/
+	public boolean add(String Sujeta,int Valeura)
+	{
 		if(nb_variable<max){
 			Sujet[nb_variable]=Sujeta;
 			Valeur[nb_variable]=Valeura;
@@ -210,6 +239,12 @@ public class Moteur {
 		return false;
 		
 	}
+	/**
+ 		*Cette fonction sert a modifié un sujet
+ 		*@param colonne index du sujet
+ 		*@param Sujeta nouveau nom du sujet
+ 		* @return True si le changement a été fait False sinon	
+ 	*/
 	public boolean setSujet(int colonne,String Sujeta){
 	
 		if(colonne<=nb_variable){
@@ -220,6 +255,12 @@ public class Moteur {
 		return false;
 	
 	}
+	/**
+ 		*Cette fonction sert a decrementé une valeur
+ 		*@param colonne index de la valeur
+ 		*@param Valeura valeur a decrementé
+ 		* @return True si le changement a été fait False sinon	
+ 	*/
 	public boolean setValeurDec(int colonne,int Valeura){
 
 		if(colonne<=nb_variable){
@@ -232,6 +273,12 @@ public class Moteur {
 		return false;
 
 	}
+	/**
+ 		*Cette fonction sert a incrementé une valeur
+ 		*@param colonne index de la valeur
+ 		*@param Valeura valeur a incrementé
+ 		* @return True si le changement a été fait False sinon	
+ 	*/
 	public boolean setValeurInc(int colonne,int Valeura){
 
 		if(colonne<=nb_variable ){
@@ -244,6 +291,33 @@ public class Moteur {
 		return false;
 
 	}
+	/***********************************/
+	/***********************************/
+	/***********************************/
+	/***********************************/
+	/***********************************/
+	/***********************************/
+	/***********************************/
+	/***********************************/
+	/***********************************/
+	/***********************************/
+	/***********************************/
+	/***********************************/
+	
+	/***********************************/
+	/***********************************/
+	/***********************************/
+	/***********************************/
+	
+	/***********************************/
+	/***********************************/
+	/***********************************/
+	/***********************************/
+	
+	/***********************************/
+	/***********************************/
+	/***********************************/
+	/***********************************/
 	public boolean setDate(int colonne,Date D){
 
 		if(colonne<=nb_variable){
