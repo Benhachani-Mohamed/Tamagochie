@@ -1,0 +1,9 @@
+Temp_Chargement:2
+Temp_Evolution:5
+Valeur_Decrementation_Eau:10
+Valeur_Decrementation_Nour:10
+Valeur_Decrementation_Som:10
+Valeur_Incrementation_Eau:100
+Valeur_Incrementation_Nour:100
+Valeur_Incrementation_Som:100
+
