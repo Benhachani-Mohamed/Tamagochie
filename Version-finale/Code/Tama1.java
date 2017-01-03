@@ -86,7 +86,6 @@ public class Tama1 extends Tamagochie {
  		* Créer un nouveau tamagoschie.
  		* @param nom  Nom du tamagoschie
  		* @param sexe Sexe du tamagoschie 
- 		* @return Rien	
  	*/
 	public void nouveau(String nom,boolean sexe)
 	{
@@ -115,8 +114,7 @@ public class Tama1 extends Tamagochie {
 		return false;
 	}
 	/**
- 		* Dans cette fonction on ajoute les couleurs dont on a besoin .
- 		* @return Rien	
+ 		* Dans cette fonction on ajoute les couleurs dont on a besoin .	
  	*/
 	public void addColor()
 	{
@@ -126,7 +124,6 @@ public class Tama1 extends Tamagochie {
 	}
 	/**
  		* Cette fonction lance le Timer.
- 		* @return Rien	
  	*/
 	public void start()
 	{
@@ -138,7 +135,6 @@ public class Tama1 extends Tamagochie {
 	}
 	/**
  		* Cette fonction attribuent une couleur a differents rectangles.
- 		* @return Rien	
  	*/
 	public void setCouleur()
 	{
@@ -149,7 +145,6 @@ public class Tama1 extends Tamagochie {
 	}
 	/**
  		* Cette fonction calcul les temps entre chaque evolutiion ... en fonction des variable recupérer dans le fichier config.txt.
- 		* @return Rien	
  	*/
 	public void setTime()//Les variables a,b,c,d et e représente les temps entre chaque niveau  en prenant en compte le temps de chargement
 	{
@@ -161,7 +156,6 @@ public class Tama1 extends Tamagochie {
 	}	
 	/**
  		* Cette fonction charge toutes les images nécessaire au bon fonctionnement du tamagoschie.
- 		* @return Rien	
  	*/
 	public void imageLoad()
 	{
@@ -196,7 +190,6 @@ public class Tama1 extends Tamagochie {
 	}
 	/**
  		* Cette fonction met tous les affichage de toutes les images a FALSE.
- 		* @return Rien	
  	*/
 	public void clear()
 	{
@@ -208,7 +201,6 @@ public class Tama1 extends Tamagochie {
 	}
 	/**
  		* Cette fonction met a True les images nécessaire pour  la scène de naissance
- 		* @return Rien	
  	*/
 	public void naissance()
 	{
@@ -218,7 +210,6 @@ public class Tama1 extends Tamagochie {
 	}
 	/**
  		* Cette fonction met a True les images nécessaire pour  la scène de chargement de la naissance
- 		* @return Rien	
  	*/
 	public void chargementN()
 	{
@@ -232,8 +223,7 @@ public class Tama1 extends Tamagochie {
 	}
 	
 	/**
- 		* Cette fonction met a True les images nécessaire pour  la scène de chargement entre evolution
- 		* @return Rien	
+ 		* Cette fonction met a True les images nécessaire pour  la scène de chargement entre evolution	
  	*/
 	public void chargement()
 	{
@@ -248,7 +238,6 @@ public class Tama1 extends Tamagochie {
 	
 	/**
  		* Cette fonction met a True les images nécessaire pour  la scène du niveau 0 
- 		* @return Rien	
  	*/
 	public void niveau0()
 	{
@@ -263,7 +252,6 @@ public class Tama1 extends Tamagochie {
 	/**
  		* Cette fonction met a True les images nécessaire pour  la scène des niveau 1 et 2
  		*@param i Numero du niveau(1 ou 2)
- 		* @return Rien	
  	*/
 	public void niveau(int i)
 	{
@@ -277,7 +265,6 @@ public class Tama1 extends Tamagochie {
 	
 	/**
  		* Cette fonction met a True les images nécessaire pour  la scène de la fin
- 		* @return Rien	
  	*/
 	public void fin()
 	{
@@ -291,7 +278,6 @@ public class Tama1 extends Tamagochie {
 	
 	/**
  		* Cette fonction décrémente les trois variables eau,nourriture et sommeil 
- 		* @return Rien	
  	*/
 	public void decrementation()
 	{
@@ -329,8 +315,7 @@ public class Tama1 extends Tamagochie {
 	}
 	
 	/**
- 		* Cette fonction met a True les images nécessaire pour  la scène de pluie
- 		* @return Rien	
+ 		* Cette fonction met a True les images nécessaire pour  la scène de pluie	
  	*/
 	public void pluie()
 	{
@@ -349,8 +334,7 @@ public class Tama1 extends Tamagochie {
 	}
 	
 	/**
- 		* Cette fonction capte les clicks des utilisateurs 
- 		* @return Rien	
+ 		* Cette fonction capte les clicks des utilisateurs 	
  	*/
   	public void mouseClicked(MouseEvent event)
 	{  
@@ -444,7 +428,6 @@ public class Tama1 extends Tamagochie {
 	
 	/**
  		* Cette fonction change la couleur des rectangle par rapport a la valuer de la variable correspondante(vert/orange/rouge)
- 		* @return Rien	
  	*/
 	public void couleurRectangle()
 	{
@@ -475,8 +458,7 @@ public class Tama1 extends Tamagochie {
 	{
 		
 		/**
- 			* Cette fonction va être appeler chaque demi seconde par le timer et va appeler telle ou telles fonction qui  va  afficher telle ou telles scène suivant l'âge et l'état de vie du tamagotschie 
- 			* @return Rien	
+ 			* Cette fonction va être appeler chaque demi seconde par le timer et va appeler telle ou telles fonction qui  va  afficher telle ou telles scène suivant l'âge et l'état de vie du tamagotschie 	
  		*/
 		public void actionPerformed(ActionEvent evt) 
 		{

@@ -69,7 +69,6 @@ public class Moteur {
 	}
 	/**
  		* Cette fonction sauvegarde la date de naissance du tama
- 		* @return Rien	
  	*/
 	public  void SauvegardeDate()
 	{
@@ -106,8 +105,7 @@ public class Moteur {
 	}
 	
 	/**
- 		* Cette fonction sauvegarde les paramétre du tama (Nom,sexe,sujet(eau,nour,someil),valeur("","",""),date de dernière  modification des variables précédentes
- 		* @return Rien	
+ 		* Cette fonction sauvegarde les paramétre du tama (Nom,sexe,sujet(eau,nour,someil),valeur("","",""),date de dernière  modification des variables précédentes	
  	*/
 	public  void Sauvegarde()
 	{
@@ -181,8 +179,7 @@ public class Moteur {
 	}
 	
 	/**
- 		*  Cette fonction charge les paramétre du tama (Nom,sexe,sujet(eau,nour,someil),valeur("","",""),date de dernière  modification des variables précédentes
- 		* @return Rien	
+ 		*  Cette fonction charge les paramétre du tama (Nom,sexe,sujet(eau,nour,someil),valeur("","",""),date de dernière  modification des variables précédentes	
  	*/
 	public boolean Charger(String nom){
 		int compteur = 0;
@@ -237,7 +234,6 @@ public class Moteur {
  		*@param Sexe  sexe du tama
  		*@param max nombres de variable(eau,nour,sommeil) 
  		*@param nouveau True si on créé un nouveau tama False sinon
- 		* @return Rien	
  	*/
 	public Moteur(String Nom,boolean Sexe,int max,boolean nouveau){
 		
@@ -255,8 +251,8 @@ public class Moteur {
 	}
 	/**
  		* Cette fonction ajoute une variable dans les tableaux des variables
- 		*@param Nom nom du tama
- 		*@param Sexe  sexe du tama
+ 		*@param Sujeta nom de la variable
+ 		*@param Valeura  valeur de la variable
  		* @return True si l'ajout a été fair False sinon
  	*/
 	public boolean add(String Sujeta,int Valeura)
@@ -407,8 +403,7 @@ public class Moteur {
 	
 	}
 	/**
- 		*Cette fonction sert à afficher sert a affficher toutes les informations relatives au tama
- 		* @return rien	
+ 		// *Cette fonction sert à afficher sert a affficher toutes les informations relatives au tama	
  	*/
 	public void Afficher()
 	{
