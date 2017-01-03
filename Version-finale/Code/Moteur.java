@@ -146,7 +146,7 @@ public class Moteur {
 	
 	/**
  		* Cette fonction charge la date de naissance
-		* @nom nom du fichier sans l'extension
+		* @param nom du fichier sans l'extension
  		* @return True si le chargement a reussi False sinon	
  	*/
 	public boolean ChargerDate(String nom){
@@ -181,7 +181,7 @@ public class Moteur {
 	
 	/**
  		*  Cette fonction charge les paramétre du tama (Nom,sexe,sujet(eau,nour,someil),valeur("","",""),date de dernière  modification des variables précédentes	
-		* @nom nom du fichier sans l'extension
+		* @param nom du fichier sans l'extension
  		* @return True si le chargement a reussi False sinon
  	*/
 	public boolean Charger(String nom){
