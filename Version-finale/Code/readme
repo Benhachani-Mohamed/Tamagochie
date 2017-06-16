@@ -1,1 +1,3 @@
-le Fichier config.txt est un fichier de configuration
+le Fichier config.txt est un fichier de configuration,
+Pour compiler : " Javac *.java "
+Pour executer : " Java Mafenetre "

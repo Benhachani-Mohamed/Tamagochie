@@ -94,7 +94,7 @@ public void nouveau(){
 		//this.setVisible(true); 
 		 G.repaint();
 		
-		A.nouveau("ok",true);
+		A.nouveau("Ardian",true);
 		this.setContentPane(A);
 			
 		A.start();
